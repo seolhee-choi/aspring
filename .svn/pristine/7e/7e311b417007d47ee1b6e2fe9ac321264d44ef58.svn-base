@@ -1,0 +1,153 @@
+package site.itwill.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import site.itwill.dto.Member;
+import site.itwill.exception.LoginAuthFailException;
+import site.itwill.exception.MemberExistsException;
+import site.itwill.exception.MemberNotFoundException;
+import site.itwill.service.MemberService;
+
+@Controller
+@RequestMapping("/member")
+public class MemberController {
+	@Autowired
+	private MemberService memberService;
+
+	//회원정보 입력하는 메소드
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String join() throws Exception {
+		return "member/member_join";
+	}
+
+	//회원정보 입력받아 MEMBER테이블에 저장하는 메소드
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public String join(@ModelAttribute Member member) throws MemberExistsException {
+		memberService.insertMember(member);
+		return "redirect:/member/login";//회원가입 완료시 로그인화면으로 이동 
+	}
+	
+	//인증정보(ID/PW) 입력하는 메소드
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		return "member/member_login"; 
+	}
+	
+	//인증정보(ID/PW)를 전달받아 MEMBER 테이블에 저장된 회원정보와 비교하여 인증처리하는 메소드
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@ModelAttribute Member member,HttpSession session) 
+			throws LoginAuthFailException, MemberNotFoundException {
+		//인증실패시
+		memberService.loginAuth(member);
+		System.out.println("로그인실패");
+		
+		//인증성공시
+		session.setAttribute("loginMember", memberService.selectMember(member.getmId()));
+		System.out.println("로그인성공");
+		return "member/member_login"; 
+	}
+
+	//로그아웃 요청하는 메소드
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/member/login"; 
+	}
+	
+	/*
+	 * //회원상세정보 출력 메소드 //로그인 사용자만 요청가능하도록 인터셉트 사용
+	 * 
+	 * @RequestMapping(value = "/mypage", method = RequestMethod.GET) public String
+	 * mypage(@RequestParam String mId,Model model) throws MemberNotFoundException {
+	 * model.addAttribute("member", memberService.selectMember(mId)); return
+	 * "member/member_mypage"; }
+	 */
+
+	
+	//회원정보 변경하는 페이지 출력 메소드 
+	//로그인 사용자만 요청가능하도록 인터셉트 사용
+	@RequestMapping(value = "/update", method = RequestMethod.GET) 
+		public String update(@RequestParam String mId, Model model) throws MemberNotFoundException { 
+		model.addAttribute("member", memberService.selectMember(mId));
+		return "member/member_mypage"; 
+	}
+	
+
+	//회원정보 변경하는 메소드
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Member member,HttpSession session) throws MemberNotFoundException {
+		memberService.updateMember(member);
+		
+		Member loginMember=(Member)session.getAttribute("loginMember");
+		//변경회원이 현재 로그인 사용자인 경우
+		if(loginMember.getmId().equals(member.getmId())) {
+			session.setAttribute("loginMember", memberService.selectMember(member.getmId()));
+		}
+		return "redirect:/member/update?mId="+member.getmId(); 
+	}
+
+	//회원정보 삭제하는 메소드
+	//로그인 사용자만 요청가능하도록 인터셉트 사용
+	@RequestMapping(value = "/delete")
+	public String delete(@RequestParam String mId,HttpSession session) throws MemberNotFoundException {
+		memberService.deleteMember(mId);
+		
+		Member loginMember=(Member)session.getAttribute("loginMember");
+		if(loginMember.getmId().equals(mId)) {
+			return "redirect:/member/logout";
+		}
+		return "redirect:/member/login"; 
+	}
+
+	@RequestMapping(value = "/find", method = RequestMethod.GET)
+	public String find() throws Exception { 
+		return "member/member_id_pw_find"; 
+	}
+	
+	/*
+	@RequestMapping(value = "/find", method = RequestMethod.POST)
+	public String find() throws Exception { 
+		return "member/member_id_pw_find"; 
+	}
+	*/
+	@RequestMapping(value = "/mileage")
+	public String mileage() {
+		return "member/member_mileage"; 
+	}
+	
+	@RequestMapping(value = "/mybook")
+	public String mybook() {
+		return "member/member_mybook"; 
+	}
+	
+	
+	@ExceptionHandler(MemberExistsException.class)
+	public String exceptionHandler(MemberExistsException exception, Model model) {
+		model.addAttribute("message", exception.getMessage());
+		model.addAttribute("member", exception.getMember());
+		return "member/member_join";
+	}
+	
+	@ExceptionHandler(LoginAuthFailException.class)
+	public String exceptionHandler(LoginAuthFailException exception, Model model) {
+		model.addAttribute("message", exception.getMessage());
+		model.addAttribute("mId", exception.getmId());
+		return "member/member_login";
+	}
+	
+	
+	
+	
+	
+	
+	
+}

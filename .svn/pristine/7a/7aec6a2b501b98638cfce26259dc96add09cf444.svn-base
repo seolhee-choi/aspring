@@ -1,0 +1,83 @@
+package site.itwill.service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import site.itwill.dao.ReservationDAO;
+import site.itwill.dto.Member;
+import site.itwill.dto.Reservation;
+import site.itwill.dto.ReservationJoin;
+import site.itwill.dto.ReservationSearch;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.Room;
+import site.itwill.dto.RoomCheck;
+
+@Service
+public class ReservationServiceImpl implements ReservationService{
+	
+	@Autowired
+	private ReservationDAO reservationDAO;
+
+	@Override
+	public List<RoomCheck> getRoomCheckList(ReservationTwo reservationTwo) {
+		return reservationDAO.selectRoomCheck(reservationTwo);
+	}
+
+	@Override
+	public List<Room> getAvailableRoom(ReservationTwo reservationTwo) {
+		return reservationDAO.selectAvailableRoom(reservationTwo);
+	}
+
+	@Override
+	public int getCheckAvailable(ReservationTwo reservationTwo) {
+		return reservationDAO.selectCheckAvailable(reservationTwo);
+	}
+
+	@Override
+	public Room getRoomOne(int rmNo) {
+		return reservationDAO.selectRoomOne(rmNo);
+	}
+	
+	@Transactional
+	@Override
+	public Member addRsv(Reservation reservation) {
+		reservationDAO.insertRsv(
+				reservation);
+		
+		Map<String, Object> minusMileage=new HashMap<String, Object>();
+		minusMileage.put("minusM", reservation.getRsvMuse());
+		minusMileage.put("mId", reservation.getmId());
+		
+		reservationDAO.updateMileageMinus(minusMileage);
+		
+		return reservationDAO.selectTestMember(reservation.getmId());
+	}
+	
+	@Override
+	public List<ReservationJoin> getRsvList() {
+		return reservationDAO.selectRsvList();
+	}
+
+	@Override
+	public List<ReservationJoin> getDynamicRsvList(ReservationSearch rsvSearch) {
+		return reservationDAO.selectDynamicRsvList(rsvSearch);
+	}
+	
+	//------------------------------------------------------------------------------
+	
+
+	@Override
+	public Member getTestMember(String mId) {
+		return reservationDAO.selectTestMember(mId);
+	}
+
+	
+
+	
+
+}

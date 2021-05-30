@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Fundation//DTD Tiles Configuration 3.0//EN"
+	"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="main" template="/WEB-INF/views/layout/template.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/layout/welcome.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
+	</definition>
+	
+	<definition name="admin" template="/WEB-INF/views/admin/admin_template.jsp">
+		<put-attribute name="headertop" value="/WEB-INF/views/admin/admin_header_top.jsp"/>
+		<put-attribute name="headerside" value="/WEB-INF/views/admin/admin_header_side.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/views/admin/admin_index.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/admin/admin_footer.jsp"/>
+	</definition>
+	
+	<definition name="admin/*" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp"/>
+	</definition>
+	
+	<definition name="admin/*/*" extends="admin">
+		<put-attribute name="content" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+	</definition>
+	
+	<!-- 추가 ======= -->
+	<definition name="calendar" template="/WEB-INF/views/calendar/calendar.jsp">
+        <put-attribute name="content" value=""/>  
+    </definition>
+
+	<definition name="calendar/*" extends="calendar">
+          <put-attribute name="content" value="/WEB-INF/views/calendar/{1}.jsp"/>
+    </definition>
+    <!-- =========== -->
+
+	<definition name="*" extends="main">
+		<put-attribute name="content" value="/WEB-INF/views/{1}.jsp"/>
+	</definition>
+
+	<definition name="*/*" extends="main">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+
+	<definition name="*/*/*" extends="main">
+		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>	
+</tiles-definitions>	
+
+
+
+
+
+

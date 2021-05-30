@@ -1,0 +1,29 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class ReviewController {
+	
+	@RequestMapping("/review")
+	public String boardReview() {
+		return "board/review";
+	}
+	@RequestMapping("/review_write")
+	public String writeReview() {
+		return "board/review_write";
+	}
+	
+	@RequestMapping("/review_modify")
+	public String modifyReview() {
+		return "board/review_modify";
+	}
+	
+	@RequestMapping("/review_detail")
+	public String detailReview() {
+		return "board/review_detail";
+	}
+	
+	
+}

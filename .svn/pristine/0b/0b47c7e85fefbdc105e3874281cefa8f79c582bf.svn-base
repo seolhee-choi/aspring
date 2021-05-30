@@ -1,0 +1,18 @@
+package site.itwill.dao;
+
+import java.util.List;
+
+import site.itwill.dto.Review;
+
+public interface ReviewDAO {
+	int insertReview(Review review);
+	int deleteReview(int no);
+	int updateReview(int no);
+	int updateHitsReview(int no);
+	Review selectReview(int no);
+	List<Review> selectRmNoReviewList(int rmNo);
+	List<Review> selectKeywordReviewList(String keyword);
+	List<Review> selectRmNoKeywordReviewList(int rmNo, String keyword);
+	List<String> selectRmNameReviewWrite();
+	List<Review> selectReviewList();
+}

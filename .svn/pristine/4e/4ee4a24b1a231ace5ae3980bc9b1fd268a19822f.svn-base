@@ -1,0 +1,175 @@
+package site.itwill.controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import site.itwill.dto.Member;
+import site.itwill.dto.Reservation;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.Room;
+import site.itwill.service.ReservationService;
+
+@Controller
+@RequestMapping("/rsv")
+public class BookController {
+	
+	@Autowired
+	private ReservationService reservationService;
+	
+	@RequestMapping("/testL")
+	public String testL(HttpSession session, HttpServletRequest request) {
+		String mId="qwe123";
+		session.setAttribute("testMember", reservationService.getTestMember(mId));
+		String referer = request.getHeader("Referer");
+		//System.out.println("redirect:"+ referer);
+		return "redirect:"+ referer;
+	}
+	
+	@RequestMapping("/testL2")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/stepOne")
+	public String stepOne() {
+		return "book/rsv_01";
+	}
+	
+	@RequestMapping(value = "/stepTwo", method = RequestMethod.POST)
+	public String stepTwo(@ModelAttribute ReservationTwo reservationTwo, Model model) {
+		model.addAttribute("roomList", reservationService.getRoomCheckList(reservationTwo));
+		return "book/rsv_02";
+	}
+	
+	@RequestMapping(value = "/stepThree")
+	public String stepThree(@ModelAttribute ReservationTwo reservationTwo, Model model) {
+		model.addAttribute("room", reservationService.getRoomOne(reservationTwo.getRmNo()));
+		return "book/rsv_03";
+	}
+	
+	@RequestMapping(value = "/check")
+	@ResponseBody
+	public Map<String, Object> check(@RequestParam int rmNo, 
+			@RequestParam String checkin, @RequestParam String checkout) {
+		
+		ReservationTwo reservationTwo=new ReservationTwo();
+		reservationTwo.setRmNo(rmNo);
+		reservationTwo.setCheckin(checkin);
+		reservationTwo.setCheckout(checkout);
+		
+		int a=reservationService.getCheckAvailable(reservationTwo);
+		
+		Map<String, Object> result=new HashMap<String, Object>();
+		result.put("posible", a);
+		if(a!=0) {
+			List<Room> availableRoomList=reservationService.getAvailableRoom(reservationTwo);
+			result.put("availableRoomList", availableRoomList);
+		}
+		 
+		return result;
+	}
+	
+	@RequestMapping(value = "/stepFour", method = RequestMethod.POST)
+	public String reservation4(@ModelAttribute ReservationTwo reservationTwo, Model model) throws ParseException {
+		
+		Room room=reservationService.getRoomOne(reservationTwo.getRmNo());
+		int datecount=0;
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date FirstDate = format.parse(reservationTwo.getCheckinTime());
+        Date SecondDate = format.parse(reservationTwo.getCheckoutTime());
+        long calDate=SecondDate.getTime()-FirstDate.getTime(); 
+        long calDateDays=calDate/( 24*60*60*1000); 
+        calDateDays = Math.abs(calDateDays);
+        datecount=(int)calDateDays;
+		
+		
+		int price=room.getRmPrice()*datecount;
+
+		int ppl=room.getRmPpl(); //기준인원
+		int adult=reservationTwo.getAdult(); //성인
+		int children=reservationTwo.getChildren(); //아이
+		
+		int payment=0; //총 결제금액
+		int addition=0; //추가인원
+		
+		if(adult+children<=ppl) {
+			payment=price;
+		}else if(adult+children>ppl){
+			addition=(adult+children)-ppl;
+			payment=((addition*10000)*datecount)+price-reservationTwo.getMileage();
+		}
+		
+		model.addAttribute("room", room);
+		model.addAttribute("datecount", datecount); //숙박일
+		model.addAttribute("addition", addition); //추가인원
+		model.addAttribute("payment", payment); //총 결제금액
+
+		return "book/rsv_04";
+	}
+	
+	@RequestMapping("/addRsv")
+	public String addRsv(@ModelAttribute Reservation reservation, HttpSession session) {
+		Member member=reservationService.addRsv(reservation);
+		session.setAttribute("testMember", member);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/calendar")
+	public String calendar(Model model) {
+		
+		return "calendar/calendar";
+	}
+	
+	//어드민-------------------------------------------------------------
+	
+	//@RequestMapping("/")
+	
+	
+	
+	/* 
+	@RequestMapping("/rsvtest1")
+	public String rsvtest1() {
+		return "book/book_cancel";
+	}
+	@RequestMapping("/rsvtest2")
+	public String rsvtest2() {
+		return "book/book_confirm";
+	}
+	@RequestMapping("/rsvtest3")
+	public String rsvtest3() {
+		return "book/book_guidance";
+	}
+	@RequestMapping("/rsvtest4")
+	public String rsvtest4() {
+		return "book/book_option";
+	}
+	@RequestMapping("/rsvtest5")
+	public String rsvtest5() {
+		return "book/book_search1";
+	}
+	@RequestMapping("/rsvtest6")
+	public String rsvtest6() {
+		return "book/book_search2";
+	}
+	*/
+	
+	
+}

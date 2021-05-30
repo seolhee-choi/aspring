@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.ReviewMapper">
+	<!-- 테이블 생성하고 sql문들 오라클에서 먼저 실행해보기! 구글시트에 sql문들로~! -->
+	
+	<insert id="insertReview">
+		<selectKey resultType="int" keyProperty="rvNo" order="BEFORE">
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into review values(#{rvNo},#{mId},#{rmNo},#{rsvNo},#{rvTitle},#{rvContent},#{rvImg},sysdate,0)
+	</insert>
+	
+	<delete id="deleteReview">
+		delete from review where rv_no=#{rvNo}
+	</delete>
+	
+	<update id="updateReview">
+		update review set rv_title=#{rvTitle},rv_content={rvContent},rv_img=#{rvImg} where rv_no=#{rvNo}
+	</update>
+	
+	<update id="updateHitsReview">
+		update review set rv_hits=rv_hits+1 where rv_no=#{rvNo}	
+	</update>
+	
+	<select id="selectReview"  resultType="Review">
+		select * from review where rv_no=#{rvNo}
+	</select>
+	
+	
+	
+	
+	<!-- 게시글 총 개수 -->
+	<select id="selectReviewCount" resultType="int">
+		select count(*) from review
+	</select>
+	
+	<!--  rmNo로 검색 -->
+	<select id="selectRmNoReviewList" resultType="Review">
+		select * from (select rownum as rn, revieww.* from (select * from review where rm_no=#{rmNo} order by rv_no desc) revieww) 
+			where rn between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- keyword 있으면 keyword로 검색 -->
+	<!-- 
+	<select id="selectKeywordReviewList" resultType="Review">
+		select * from review 
+		<if test="keyword!=null and keyword!=''">
+			where rv_title like '%' || ${keyword} || '%' or m_id like  '%' || ${keyword} || '%'  or rv_content like '%' || ${keyword} || '%'  or rv_write_date like '%' || ${keyword} || '%' 
+		</if>
+		order by rv_no desc
+	</select>
+	 -->
+	<!--  
+	<select id="selectRmNoKeywordReviewList"  resultType="Review">
+		select * from review where rv_no=#{rvNo} and rv_title like '%' || ? || '%' or m_id like '%' || ? || '%' or rv_content like '%' || ? || '%'  or rv_write_date like '%' || ? || '%' 	
+	</select>
+	-->
+	
+	<!-- 아이디 전달받아 리뷰 쓸 때 이용한 객실 & 체크아웃 2주 내인 내역(객실이름)만 선택할 수 있게하는 -->
+	<select id="selectRmNameReviewWrite" resultType="string">
+		select rm.rm_name from review rv 
+		join reservation rsv on rv.rsv_no=rsv.rsv_no
+		join room rm on rv.rm_no=rm.rm_no
+		where rsv.rsv_status=2 and rsv.rsv_checkout+14>=sysdate
+	</select>
+
+	<!-- 페이징처리 + 키워드 있으면 키워드 검색 -->
+	<select id="selectSearchReviewList" resultType="Review">
+		select * from (select rownum as rn, revieww.* from (select * from review
+		<if test="keyword!=null and keyword!=''">
+			where rv_title like '%'|| #{keyword} ||'%'     
+			or m_id like  '%'|| #{keyword} ||'%'
+			or rv_content like '%'|| #{keyword} ||'%'
+			or rv_write_date like '%'|| #{keyword} ||'%'
+		</if>
+			order by rv_no desc) revieww) where rn between #{startRow} and #{endRow}
+	</select>	
+</mapper>
+
+
+
+
+
+
+

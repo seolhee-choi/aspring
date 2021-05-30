@@ -1,0 +1,70 @@
+package site.itwill.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import site.itwill.dto.Reservation;
+import site.itwill.dto.ReservationJoin;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.Room;
+import site.itwill.dto.RoomCheck;
+import site.itwill.mapper.ReservationMapper;
+
+@Repository
+public class ReservationDAOImpl implements ReservationDAO{
+	
+	@Autowired
+	private SqlSession sqlSession;
+
+	@Override
+	public List<RoomCheck> selectRoomCheck(ReservationTwo reservationTwo) {
+		return sqlSession.getMapper(ReservationMapper.class).selectRoomCheck(reservationTwo);
+	}
+
+	@Override
+	public List<Room> selectAvailableRoom(ReservationTwo reservationTwo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int selectCheckAvailable(ReservationTwo reservationTwo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Room selectRoomOne(int rmNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertRsv(Reservation reservation) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<ReservationJoin> selectRsvList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ReservationJoin> selectDynamicRsvList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReservationJoin selectRsvOne(int rsvNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+}

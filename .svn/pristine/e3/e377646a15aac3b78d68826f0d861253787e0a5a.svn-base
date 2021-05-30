@@ -1,0 +1,211 @@
+
+/* 테마 */
+/*.room1 {*/
+/*background-color: #00a65a;*/
+/*color: #fff;*/
+/*}*/
+/*.room2 {*/
+/*background-color: #00c0ef;*/
+/*color: #fff;*/
+/*}*/
+/*.room3 {*/
+/*background-color: #c39873;*/
+/*color: #fff;*/
+/*}*/
+/*.room4 {*/
+/*background-color: #464646;*/
+/*color: #fff;*/
+/*}*/
+
+/*.room1-text {*/
+/*color: #00a65a;*/
+/*}*/
+/*.room2-text {*/
+/*color: #00c0ef;*/
+/*}*/
+/*.room3-text {*/
+/*color: #c39873;*/
+/*}*/
+/*.room4-text {*/
+/*color: #464646;*/
+/*}*/
+
+.box.box-solid.room1 {
+    border: 1px solid #00a65a;
+}
+.box.box-solid.room1 > .box-header {
+    color: #ffffff;
+    background-color: #aaaaaa;
+}
+.box.box-solid.room1 > .box-header a,
+.box.box-solid.room1 > .box-header .btn {
+    color: #ffffff;
+}
+.box.box-solid.room2 {
+    border: 1px solid #678c94;
+}
+.box.box-solid.room2 > .box-header {
+    color: #ffffff;
+    background-color: #678c94;
+}
+.box.box-solid.room2 > .box-header a,
+.box.box-solid.room2 > .box-header .btn {
+    color: #ffffff;
+}
+.box.box-solid.room3 {
+    border: 1px solid #c39873;
+}
+.box.box-solid.room3 > .box-header {
+    color: #ffffff;
+    background-color: #c39873;
+}
+.box.box-solid.room3 > .box-header a,
+.box.box-solid.room3 > .box-header .btn {
+    color: #ffffff;
+}
+.box.box-solid.room4 {
+    border: 1px solid #464646;
+}
+.box.box-solid.room4 > .box-header {
+    color: #ffffff;
+    background-color: #464646;
+}
+.box.box-solid.room4 > .box-header a,
+.box.box-solid.room4 > .box-header .btn {
+    color: #ffffff;
+}
+
+.box.box-solid.DELETE {
+    border: 1px solid #111;
+}
+.box.box-solid.DELETE > .box-header {
+    color: #ffffff;
+    background-color: #111;
+}
+.box.box-solid.DELETE > .box-header a,
+.box.box-solid.DELETE > .box-header .btn {
+    color: #ffffff;
+}
+
+.badge.room1 {
+    background-color: #aaaaaa;
+}
+.badge.room2 {
+    background-color: #678c94;
+}
+.badge.room3 {
+    background-color: #c39873;
+}
+.badge.room4 {
+    background-color: #464646;
+}
+
+.call-action-v1.room1 {background-color: #aaaaaa;}
+.call-action-v1.room2 {background-color: #678c94;}
+.call-action-v1.room3 {background-color: #c39873;}
+.call-action-v1.room4 {background-color: #464646;}
+.call-action-v1.foreground {background-color: #1abc9c;}
+
+.pricing-table-v1 .pricing-v1-room1 .pricing-v1-head {
+    background: #aaaaaa !important;
+}
+
+.pricing-table-v1 .pricing-v1-room2 .pricing-v1-head {
+    background: #678c94;
+}
+
+.pricing-table-v1 .pricing-v1-room3 .pricing-v1-head {
+    background: #c39873;
+}
+
+.pricing-table-v1 .pricing-v1-room4 .pricing-v1-head {
+    background: #464646;
+}
+
+.one-page-inner.room1 {
+    background: #aaaaaa;
+}
+.one-page-inner.room2 {
+    background: #678c94;
+}
+.one-page-inner.room3 {
+    background: #c39873;
+}
+.one-page-inner.room4 {
+    background: #464646;
+}
+
+/* 예약상태 */
+/*.WAITING {*/
+/*background-color: #dd4b39;*/
+/*}*/
+/*.PAID {*/
+/*background-color: #3c8dbc;*/
+/*}*/
+/*.PART_PAID {*/
+/*background-color: #01ff70;*/
+/*}*/
+/*.REQ_CANCEL {*/
+/*background-color: #ff851b;*/
+/*}*/
+/*.CANCEL {*/
+/*background-color: #d8164a;*/
+/*}*/
+/*.DELETE {*/
+/*background-color: #333333;*/
+/*}*/
+/*.CLOSED {*/
+/*background-color: #3d9970;*/
+/*}*/
+
+.badge.WAITING {
+    background-color: #dd4b39 !important;
+}
+.badge.PAID {
+    background-color: #337ab7 !important;
+}
+.badge.PART_PAID {
+    background-color: #3d98df !important;
+}
+.badge.REQ_CANCEL {
+    background-color: #ff851b !important;
+}
+.badge.CANCEL {
+    background-color: #d8164a !important;
+}
+.badge.DELETE {
+    background-color: #111 !important;
+}
+.badge.CLOSED {
+    background-color: #3d9970 !important;
+}
+
+/* Calendar */
+.box-header.WAITING {
+    border: 2px solid #ffff00;
+}
+
+
+.room-top {
+  border: 1px solid #ffffff;
+}
+.box.box-solid.room-top > .box-header {
+  color: #333333;
+  background-color: #ffffff;
+}
+.box.box-solid.room-top > .box-header a,
+.box.box-solid.room-top > .box-header .btn {
+  color: #333333;
+}
+.badge.room-top {
+  background-color: #ffffff;
+}
+.call-action-v1.room-top {
+  background-color: #ffffff;
+}
+.pricing-table-v1 .pricing-v1-room-top .pricing-v1-head {
+  background: #ffffff !important;
+}
+.one-page-inner.room-top {
+  background: #ffffff;
+}

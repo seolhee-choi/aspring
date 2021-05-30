@@ -1,0 +1,115 @@
+package site.itwill.dto;
+
+/*
+CREATE TABLE review (
+rv_no NUMBER(5) PRIMARY KEY,
+m_id VARCHAR2(50),
+rm_no NUMBER(5),
+rsv_no NUMBER(5),
+rv_title VARCHAR2(200),
+rv_content VARCHAR2(2000),
+rv_img VARCHAR2(100),
+rv_write_date DATE,
+rv_hits NUMBER(5),
+CONSTRAINT review_u_id_fk FOREIGN KEY (m_id)
+REFERENCES member(m_id),
+CONSTRAINT review_rm_no FOREIGN KEY (rm_no)
+REFERENCES product(rm_no)
+);
+
+CREATE SEQUENCE review_seq;
+ */
+public class Review {
+	private int no;
+	private String id;
+	private int rmNo;
+	private int rsvNo;
+	private String title;
+	private String content;
+	private String img;
+	private String writeDate;
+	private int hits;
+	
+	public Review() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getRmNo() {
+		return rmNo;
+	}
+
+	public void setRmNo(int rmNo) {
+		this.rmNo = rmNo;
+	}
+
+	public int getRsvNo() {
+		return rsvNo;
+	}
+
+	public void setRsvNo(int rsvNo) {
+		this.rsvNo = rsvNo;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getWriteDate() {
+		return writeDate;
+	}
+
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+
+	public int getHits() {
+		return hits;
+	}
+
+	public void setHits(int hits) {
+		this.hits = hits;
+	}
+	
+	
+	
+	
+	
+	
+	
+}

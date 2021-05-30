@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<!-- log4j : 장치에 기록(로그) 하는 로그 구현체 프로그램 -->
+<!-- => log4j.xml 파일을 이용하여 기록 관련 정보 설정 -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="sample" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c{1} 클래스의 %M 메소드 - %m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="dailyLogFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="daily.log"/>
+		<param name="DatePattern" value=".yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{HH:mm:ss}]%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="site.itwill.controller">
+		<level value="info" />
+	</logger>
+	
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+	
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.web">
+		<level value="info" />
+	</logger>
+	<!-- 
+	<logger name="site.itwill.controller">
+		<level value="info"/>
+	</logger>
+	 -->
+	<!-- jdbc.sqlonly : 완성된 SQL 명령 기록 -->
+	<logger name="jdbc.sqlonly">
+		<level value="info"/>
+	</logger>
+	
+	<!-- jdbc.sqltiming : SQL 명령의 실행시간(ms) 기록 -->
+	<logger name="jdbc.sqltiming">
+		<level value="info"/>
+	</logger>
+	
+	<!-- jdbc.audit : ResultSet 관련 정보를 제외한 모든 JDBC 관련 정보 기록 -->
+	<logger name="jdbc.audit">
+		<level value="info"/>
+	</logger>
+	
+	<!-- jdbc.resultset : ResultSet 관련 정보를 포함한 모든 JDBC 관련 정보 기록 -->
+	<!--  
+	<logger name="jdbc.resultset">
+		<level value="info"/>
+	</logger>
+	-->
+	
+	<!-- jdbc.resultsettable : ResultSet 관련 정보를 테이블 형식으로 기록 -->
+	<logger name="jdbc.resultsettable">
+		<level value="info"/>
+	</logger>
+	
+	<!-- jdbc.connection : Connection 관련 정보 기록 - Open 또는 Close -->
+	<logger name="jdbc.connection">
+		<level value="info"/>
+	</logger>
+
+	<!-- Root Logger -->
+	<!-- root : 최상위 기록 정보(Logger)를 설정하기 위한 엘리먼트 -->
+	<!-- => 모든 패키지의 클래스에 기본적으로 적용되는 기록 정보 -->	
+	<!-- => 모든 logger 엘리먼트가 기록 정보를 상속받아 사용 -->	
+	<root>
+		<!-- priority : 기본 로그 이벤트를 설정하기 위한 엘리먼트 -->
+		<priority value="warn" />
+		<!-- appender-ref : 기록자를 설정하기 위한 엘리먼트 -->
+		<!-- ref 속성 : appender 엘리먼트의 고유값을 속성값으로 설정 -->
+		<appender-ref ref="console" />
+	</root>
+	
+</log4j:configuration>

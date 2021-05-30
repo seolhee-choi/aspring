@@ -1,0 +1,645 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script nonce="nsqtrbDkqLM9+hVF/hYN9dFOpTAKxWFcuzchmc+uQ6E=">window.Firstmall = window.Firstmall || {};
+window.Firstmall.Config = {"Environment":{"MobileMode":true,"SetMode":null,"Language":"KR","isAdmin":false,"isSellerAdmin":false,"Currency":{"Basic":{"Id":"KRW","Symbol":"&#x20a9;","Position":"after"},"Skin":{"Id":"KRW","Symbol":"&#x20a9;","Position":"after"}},"serviceLimit":{"H_FR":false,"H_AD":true,"H_NFR":true},"OperationType":"light","Protocol":"http","CacheBreaker":null},"Security":{"PreventDrag":false,"PreventContextMenu":false},"Search":{"AutoComplete":false,"Suggest":false}};
+(function(){ var aliases = {"gl_operation_type":window.Firstmall.Config.Environment.OperationType,"gl_mobile_mode":window.Firstmall.Config.Environment.MobileMode,"gl_set_mode":window.Firstmall.Config.Environment.SetMode,"gl_language":window.Firstmall.Config.Environment.Language,"gl_basic_currency":window.Firstmall.Config.Environment.Currency.Basic.Id,"gl_skin_currency":window.Firstmall.Config.Environment.Currency.Skin.Id,"gl_basic_currency_symbol":window.Firstmall.Config.Environment.Currency.Basic.Symbol,"gl_basic_currency_symbol_position":window.Firstmall.Config.Environment.Currency.Basic.Position,"gl_protocol":window.Firstmall.Config.Environment.Protocol+"://"}; for(var attr in aliases) { window[attr] = aliases[attr]; }})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title></title>
+
+
+ 
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="/semi/css/font.css">
+
+<!-- 구글 웹폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700&amp;subset=korean" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/semi/css/jqueryui/black-tie/jquery-ui-1.8.16.custom.css">
+<link rel="stylesheet" type="text/css" href="/semi/css/slick.css"><!-- 반응형 슬라이드 -->
+<link rel="stylesheet" type="text/css" href="/semi/css/lib.css">
+<link rel="stylesheet" type="text/css" href="/semi/css/common.css">
+<link rel="stylesheet" type="text/css" href="/semi/css/board.css">
+<link rel="stylesheet" type="text/css" href="/semi/css/buttons.css">
+<link rel="stylesheet" type="text/css" href="/semi/css/broadcast.css"> 
+<link rel="stylesheet" type="text/css" href="/semi/css/user.css"><!-- ++++++++++++ 스킨 사용자/제작자 CSS ++++++++++++ -->
+
+<!-- /CSS -->
+<link rel="stylesheet" type="text/css" href="/semi/css/javascript/plugin/jquery_swipe/jquery_swipe.css">
+<!-- 자바스크립트 -->
+<script src="/semi/css/javascript/jquery/jquery.min.js"></script>
+<script src="/semi/css/javascript/jquery/jquery-ui.min.js"></script>
+<script src="/semi/css/javascript/plugin/jquery.poshytip.min.js"></script>
+<script src="/semi/css/javascript/plugin/jquery.activity-indicator-1.0.0.min.js"></script>
+<script src="/semi/css/javascript/plugin/jquery.cookie.js"></script>
+<script src="/semi/css/javascript/plugin/jquery.slides.min.js"></script>
+<script src="/semi/css/javascript/plugin/jquery.placeholder.js"></script>
+<script src="/semi/css/javascript/plugin/validate/jquery.validate.js"></script>
+<script src="/semi/css/javascript/plugin/ezmark/js/jquery.ezmark.min.js"></script>
+<script src="/semi/css/javascript/plugin/custom-select-box.js"></script>
+<script src="/semi/css/javascript/plugin/custom-mobile-pagination.js"></script>
+<script src="/semi/css/javascript/plugin/slick/slick.min.js"></script>
+<script src="/semi/css/javascript/plugin/jquery_swipe/jquery.event.swipe.js"></script>
+<script src="/semi/css/javascript/plugin/touchSlider/swiper.js"></script>
+
+
+<script>
+var REQURL = 'main.html';
+var WINDOWWIDTH = window.innerWidth;
+</script>
+
+
+
+
+<div id="layout_header" class="layout_header">
+	<div class="util_wrap">
+		<div class="resp_wrap">
+			<!-- bookmark -->
+			<ul class="bookmark">
+				<li><a href="index.jsp?workgroup=company&amp;work=cs">CS Center</a></li>
+				<li><a href="index.jsp?workgroup=member&amp;work=mypage">My page</a></li>
+			</ul>
+
+			
+			
+			<ul class="util_wrap_menu2">
+				<li class="respCartArea">
+					<a href="index.jsp?workgroup=sproduct&amp;work=sproduct_cart"><span>TestCart</span><span class="cart_cnt1">1</span></a>
+				</li>
+				<li class="respCartArea"> 
+					<a href="index.jsp?workgroup=sproduct&amp;work=myorder"><span>TestOrder</span><span class="cart_cnt1">3</span></a>
+				</li>
+				<li class="respCartArea">
+					<a href="index.jsp?workgroup=cart&amp;work=cart"><span>Cart</span><span class="cart_cnt1">0</span></a>
+				</li>
+				<li><a href="index.jsp?workgroup=order&amp;work=order_list"><span>Order</span><span class="cart_cnt1">0</span></a></li>
+				<li class="point"><a href="index.jsp?workgroup=member&amp;work=logout">Logout</a></li>
+					
+				 				
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="logo_wrap">
+		<div class="resp_wrap">
+
+			<!-- logo -->
+			<h1 class="logo_area">
+			<a href="index.jsp?workgroup=base&amp;work=print" target="_self"><img src="/semi/images/logo.png" alt="(주) 귀사의 회사명"></a>
+			</h1>
+
+			<!-- 장바구니( 1023px 이하에서 노출됨 ) -->
+			<a href="order/cart.html" class="resp_top_cart"><span class="cart_cnt2">0</span></a>
+
+
+			<!-- +++++++++++ 카테고리 메뉴( 카테고리 메뉴를 미노출 하실 분은 style="display:none;" 처리 하세요. ex) id="cateSwiper" class="nav_wrap" style="display:none;" ) +++++++++++ -->
+			<div id="cateSwiper" class="nav_wrap">
+				<div class="resp_wrap">
+					<div class="nav_category_area">
+						<div class="designCategoryNavigation">
+							<ul class="respCategoryList">
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="index.jsp?workgroup=company&amp;work=company_hello"><em>About Us</em></a>
+								</li>
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="index.jsp?workgroup=sproduct&amp;work=sproduct_list"><em>Product</em></a>
+								</li>
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="index.jsp?workgroup=product&amp;work=product_list"><em>Sale</em></a>
+								</li>
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="/semi/index.jsp?workgroup=board&amp;work=board_list&amp;category=1"><em>Notice</em></a>
+								</li>
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="/semi/index.jsp?workgroup=board/question&amp;work=question_list&amp;category=3"><em>Inquiry</em></a>
+								</li>
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="index.jsp?workgroup=board&amp;work=qa"><em>Q&amp;A</em></a>
+								</li>
+								<li class="custom_nav_link">
+									<a class="categoryDepthLink" href="index.jsp?workgroup=board&amp;work=board_list"><em>Board</em></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //로고 영역 -->
+</div>
+
+
+	</div>
+	
+	<div id="content">
+		
+
+
+
+
+
+
+
+
+    
+
+<style type="text/css">
+.faq_new { font-size:14px; } 
+.faq_new>li { margin-top:10px; } 
+.faq_new>li:first-child { margin-top:0; } 
+.faq_new #question { position:relative; padding:0 0 0 40px; }
+.faq_new #question:before { position:absolute; left:0; top:0; display:block; width:40px; box-sizing:border-box; padding-left:8px; content:'R'; font-size:28px; line-height:40px; font-weight:700; color:#333; }
+.faq_new #question .subject {min-height:22px;padding:12px 10px 10px 12px;background:#f8f8f8;}
+.faq_new #question .subject, .faq_new .question .subject a {color:#333;}
+.faq_new .answer { position:relative; margin-top:20px; padding:0 0 20px 52px; line-height:1.6; color:#666; }
+.faq_new .answer:before { position:absolute; left:0; top:0; display:block; width:40px; box-sizing:border-box; padding-left:8px; content:''; font-size:28px; line-height:40px; font-weight:700; color:#b1b1b1; }
+</style>
+
+
+<!-- 타이틀 -->
+<div id="layout_body" class="layout_body">
+	<div class="ajaxLineMap search_nav">
+		&nbsp;&nbsp;메인페이지<a class="home" href="/semi/index.jsp">&nbsp;&nbsp;홈</a>
+	</div>
+
+
+	<!-- 타이틀 -->
+	<div class="detail_title_area">
+		<h3 class="name">반딧불이</h3>	
+			<div><p class="summary">반딧불이</p></div>
+	</div>
+<form name="goodsForm" method="post" id="goodsForm">
+<input type="hidden" name="num" value="139">
+<input type="hidden" name="name" value="반딧불이">
+<input type="hidden" name="image" value="mheader1391.png">
+<input type="hidden" name="price2" value="50000">
+
+	<div id="goods_view">
+		<div class="goods_thumbs_spec">
+			<div id="goods_thumbs">
+						<img src="/semi/sproduct_image/mheader139.png" title="">
+				<div class="slides_container hide" style="position: relative;">
+					<div class="viewImgWrap">
+					</div>
+				</div>
+			</div>
+
+			<!-- ++++++++++++++++++++++++ 상품 스펙 ++++++++++++++++++++++++ -->
+			<div id="goods_spec">
+					<input type="hidden" name="goodsSeq" value="49">
+
+
+					<ul class="goods_spec_sections">
+
+						<!-- ~~~~~ 가격, 할인율, 할인내역 ~~~~~ -->
+						
+						<li class="goods_spec_sub_info">
+							<ul class="detail_spec_table">
+								<li class="th"><span designelement="text" textindex="200" texttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">상품이름</span></li>
+								<li><span class="gray_06" designelement="text" textindex="200" exttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">
+									반딧불이</span></li>
+								<li class="btn_area1"></li>
+							</ul>
+						</li>
+						<li class="goods_spec_brand">
+							<ul class="detail_spec_table">
+								<li class="th"><span designelement="text" textindex="81" texttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">상품정보</span></li>
+								<li><span class="gray_06" designelement="text" textindex="200" exttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">
+									반딧불이</span></li>
+								
+							</ul>
+						</li>
+						<li class="goods_spec_brand">
+							<ul class="detail_spec_table">
+								<li class="th"><span designelement="text" textindex="81" texttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">상품색상</span></li>
+								<li>
+									<span class="gray_06">
+										<select name="category" id="category">
+											<option value="RED">빨강</option>		
+											<option value="GREEN">초록</option>		
+											<option value="YELLOW">노랑</option>		
+										</select>
+									</span>
+								</li>
+							<li class="goods_spec_brand">
+							<ul class="detail_spec_table">
+								<li class="th"><span designelement="text" textindex="81" texttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">상품수량</span></li>
+								<li><span class="gray_06">
+										<select id="su" name="su">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+										</select></span></li>
+								
+							</ul>
+						</li>		
+							</ul>
+						</li>
+							</ul>
+						
+						<!-- ~~~~~ //상품정보 ~~~~~ -->
+						<!-- ~~~~~ 브랜드 ~~~~~ -->
+						<!-- ~~~~~ //브랜드 ~~~~~ -->
+					
+
+					<!-- ~~~~~~~~~~~ 구매하기 열기 섹션( 모바일 전용 ) ~~~~~~~~~~~ -->
+					
+					<!-- ~~~~~~~~~~~ 구매하기 ~~~~~~~~~~~ -->
+					<div id="goodsOptionBuySection" class="goods_buy_sections">
+						<a href="javascript:void(0);" id="btnSectionClose" class="btn_section_close">닫기</a>
+
+						<div class="goods_option_select_area">
+							<script type="text/javascript">
+// 기존 option size 저장
+
+var old_height = $('.goods_option_select_area').height();
+$(document).ready(function(){
+	gl_option_select_ver	= $("input[name='gl_option_select_ver']").val();
+
+	var optObj			= new jscls_option_select();
+	optObj.set_init('1',
+					'49',
+					'64000',
+					'',
+					'responsive_camping_healing_gl',
+					true,
+					'1',
+					'0',
+					'',
+					'',
+					'divide',
+					'',
+					'',
+					'',
+					'',
+					'KRW', 
+					'&#x20a9;', 
+					'after',
+					'');
+
+
+
+	policyList = new Array();
+
+
+	optObj.set_cutting_sale_price('0.001', 'dscending');
+
+
+
+	// callback 함수 셋팅 :: 2016-02-04 lwh
+	optObj.set_selectbox_option('sbHolderOpen', 'sbHolderClose');
+
+	optObj.set_bind_option();
+	apply_input_style();
+});
+
+// 옵션 선택시 슬라이드 옵션창 재조정 :: 2019-02-07 lwh
+function sbHolderOpen(inst){
+	if ( window.innerWidth < 768 ) {
+		if ( old_height == 0 ) {
+			old_height = $('#select_option_lay .goods_option_area').height();
+		}
+		var opScrollHeight = $('#select_option_lay .goods_option_area').height();
+		var selectOptionHeight = $('#select_option_lay').find('.sbOptions:visible').height();
+		if ( selectOptionHeight > opScrollHeight - 77 ) {
+			$('#select_option_lay .goods_option_area').css( 'min-height', opScrollHeight + selectOptionHeight + 22 + 'px' );
+			$('#select_option_lay').find('.sbOptions').css( 'max-height', 'none' );
+		}
+	}
+}
+function sbHolderClose(inst){
+	// 선택된 옵션이 있는지 체크
+	if ( window.innerWidth < 768 ) {
+		if($(".goods_quantity_table_container").css('display') != 'block'){
+			$('#select_option_lay .goods_option_area').css( 'min-height', '0' );
+		}
+	}
+}
+</script>
+
+							<div id="select_option_lay">
+								<input type="hidden" name="option_select_goods_seq" value="49">
+								<input type="hidden" name="option_select_provider_seq" value="1">
+								<input type="hidden" name="gl_option_select_ver" value="0.1">
+								<input type="hidden" name="use_add_action_button" value="n">
+
+								<div class="goods_option_area">
+									<table class="goods_option_table" width="100%" cellpadding="0" cellspacing="0" border="0">
+										<colgroup>
+											<col>
+											<col width="15">
+										</colgroup>
+
+	
+
+									</table>
+									
+									</div>
+								</div>
+							</div>
+
+							<!-- //상품 옵션 인클루드 -->
+						</div>
+
+						<!-- 총 상품 금액 표기 시작-->
+						<div class="goods_price_area">
+							<table width="100%" cellpadding="0" cellspacing="0" border="0">
+								<tbody><tr>
+									<!-- 단일옵션일 경우 수량 -->
+									<td class="total_goods_price"><span class="total_goods_tit" designelement="text" textindex="106" texttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">개당 상품금액</span>
+										<span id="don">50000</span>&nbsp;₩</td>
+								</tr>
+							</tbody></table>
+								
+									<!-- 단일옵션일 경우 수량 -->
+									<span class="total_goods_tit" designelement="text" textindex="106" texttemplatepath="cmVzcG9uc2l2ZV9jYW1waW5nX2hlYWxpbmdfZ2wvZ29vZHMvdmlldy5odG1s">총 상품금액</span>
+										<span id="total_goods_price"><span id="sum">50,000</span></span>&nbsp;₩
+								
+							
+						</div>
+						<!-- 총 상품 금액 표기 끝-->
+						<div class="goods_buttons_area">
+							<ul class="goods_buttons_section">
+								<li>
+									<ul class="basic_btn_area">
+										<li><button type="button" id="addcart" onclick="sproduct_cart_action();">
+											<span>장바구니</span></button></li>
+										<li><button type="button" id="buy" class="btn_resp size_extra2 color2 NpayNo">
+												<span>구매하기</span>
+											</button></li>
+									</ul>
+
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+
+					<!-- 오프라인 쿠폰 -->
+					<!-- //오프라인 쿠폰 -->
+
+			</div>
+		</div>
+	</form>
+		<!-- 게시판 식별 -->
+	<div id="boardlayout">
+		<div class="subpage_wrap">
+			<div class="subpage_container">
+				<div class="title_container">
+					<h2>상품 문의</h2>
+				</div>
+				
+				<div id="bbslist">			 
+					
+					<div class="no_data_area2">등록된 게시글이 없습니다.</div>
+					
+					<ul class="bbs_top_wrap">
+						<li class="right2">
+							<span class="searchform">
+									<button type="button" class="btn_resp size_b" onclick="location.href='/semi/index.jsp?workgroup=board/question&amp;work=question_write&amp;category=3'">문의쓰기</button>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 게시판 식별 - 문의끝 후기시작 -->
+	<div id="boardlayout">
+		<div class="subpage_wrap">
+			<div class="subpage_container">
+				<div class="title_container">
+					<h2>상품 후기</h2>
+				</div>
+				<div id="bbslist">
+					
+							
+					<ul class="faq_new">
+						<li>		
+							
+								<div class="question" id="question">
+									<p class="subject">
+										<span class="cat" style="color:#ff6600;display:inline-block; width:90px;">★★★★★</span>
+										<span class="hand highlight-link boad_faqview_btn " viewtype="page" pagetype="" viewlink="/board/view?id=faq&amp;seq=12" fileperm_read="" board_seq="365" board_id="faq">
+											<a>고기사조 많이 많이 방문해주세요</a> &nbsp;&nbsp;
+										</span>
+									</p>
+								</div>
+								<div id="faqcontent_365" class="answer hide" style="display: block;">
+									<p>작성자 : 전우치</p>
+									
+									<p><img src="/semi/board/review/image/hanwoo_sirloin_gift_mainbanner.jpg" width="400px"></p><br>
+									
+									<p>잘되네요</p><br>
+								</div>
+							 	
+						</li>
+					</ul>
+					
+					<ul class="bbs_top_wrap">
+						<li class="right2"><span class="searchform">
+								<button type="button" class="btn_resp size_b" onclick="location.href='/semi/index.jsp?workgroup=board/review&amp;work=review_write&amp;category=2'">후기 쓰기</button>
+						</span></li>
+					</ul>
+
+					<script type="text/javascript">
+						// FAQ 게시글 보기
+						$('.boad_faqview_btn').on('click', function() {
+							var board_seq = $(this).attr('board_seq');
+							$("#faqcontent_" + board_seq).toggle();
+						});
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /게시판 식별2 -->
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+$("#addcart").click(function() {
+	$("#goodsForm").attr("method","post");
+	$("#goodsForm").attr("action","/semi/index.jsp?workgroup=sproduct&work=sproduct_cart_action&num=139");
+	$("#goodsForm").submit(); 	
+});
+
+$("#buy").click(function() {
+	$("#goodsForm").attr("method","post");
+	$("#goodsForm").attr("action","/semi/index.jsp?workgroup=sproduct&work=order_action&num=139");
+	$("#goodsForm").submit(); 	
+	alert("비로그인시 비회원구매페이지 / 로그인시 구매페이지");
+});
+
+</script>
+<script type="text/javascript">
+	
+	$(function() {
+		/* 반응형 슬라이드 배너 관련( 절대 삭제 금지 ) */
+			$('.slider_before_loading').removeClass('slider_before_loading');
+
+		// 상품 색상 코드값 디자인( new 상품정보 )
+		if ( $('.displaY_color_option').length > 0 ) {
+			$('.displaY_color_option .areA').filter(function() {
+				return ( $(this).css('background-color') == 'rgb(255, 255, 255)' );
+			}).addClass('border');
+		}
+
+		$( window ).on('resize', function() {
+			if ( window.innerWidth != WINDOWWIDTH ) {
+				setTimeout(function(){ WINDOWWIDTH = window.innerWidth; }, 10);
+			}
+		});
+	});
+
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
+	function calc() {
+		var don=$("#don").text();
+		var su=$("#su").val();
+		$("#sum").text(numberWithCommas(don*su));
+	}
+	
+	calc();
+	
+	$("#su").change(calc);
+	
+
+
+</script>
+
+		
+	
+	
+	<div id="footer">
+		
+
+
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+<div id="layout_footer" class="layout_footer">
+	<div class="footer_a">
+		<div class="resp_wrap">
+			<ul class="menu1">
+				<li class="foot_menu_d1 cs">
+					<h4 class="title"><a href="index.jsp?workgroup=company&amp;work=cs">CS Center</a></h4>
+					<ul class="list v4">
+						<li class="compay_phone">
+							<a href="tel: 02-6255-8002">02-6255-8002</a>
+						</li>
+						<li>
+							<p><span>MON-FRI : AM 09:00 ~ PM 06:00 </span></p><p>SAT, SUN, HOLIDAY OFF</p>
+						</li>
+						<li class="Pt2"><p><span>LUNCH : AM 12:00 ~ PM 01:00</span></p></li>
+					</ul>
+				</li>
+				<li class="foot_menu_d2 bank">
+					<h4 class="title"><span>Banking Info</span></h4>
+					<ul class="list v3 gray_03">
+						<li>
+							<p>우리은행 1002-748-541279 / <span class="gray_06">예금주 :</span> 최규태</p>
+						</li>
+						<li>
+							<p>신한은행 110-268-222010 / <span class="gray_06">예금주 :</span> 최규태</p>
+						</li>
+					</ul>
+				</li>
+				<li class="foot_menu_d3">
+					<h4 class="title"><span>Community</span></h4>
+					<ul class="list v3 gray_03">
+						<li><a href="/semi/index.jsp?workgroup=board&amp;work=board_list&amp;category=1">Notice</a></li>
+						<li><a href="/semi/index.jsp?workgroup=board&amp;work=qa&amp;category=5">Q&amp;A</a></li>
+						<li><a href="/semi/index.jsp?workgroup=board/question&amp;work=question_list&amp;category=3">Inquiry</a></li>
+						<li><a href="/semi/index.jsp?workgroup=board/review&amp;work=review_list&amp;category=2">Review</a></li>
+					</ul>
+				</li>
+				<li class="foot_menu_d4">
+					<h4 class="title"><span>Follow Us</span></h4>
+					<ul class="list v3 gray_03">
+						<li>
+							<a href="https://www.instagram.com/omirakitchen/">Instagram</a>
+						</li>
+						<li>
+							<a href="https://open.kakao.com/o/so5sYqXc">Kakao</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer_b">
+		<div class="resp_wrap">
+			<ul class="menu2">
+				<li><a href="index.jsp?workgroup=base&amp;work=print">HOME</a></li>
+				<li><a href="index.jsp?workgroup=company&amp;work=company_hello">COMPANY</a></li>
+				<li><a href="index.jsp?workgroup=company&amp;work=agreement">AGREEMENT</a></li>
+				<li><a href="index.jsp?workgroup=company&amp;work=privacy">PRIVACY POLICY</a></li>
+                <li><a href="index.jsp?workgroup=company&amp;work=guide">GUIDE</a></li>
+                <li><a href="index.jsp?workgroup=company&amp;work=partner"></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer_c">
+		<div class="resp_wrap">
+			<ul class="menu3">
+				<li><span>COMPANY :</span> <span class="pcolor">(주) On The Mountain</span></li>
+				<li><span>CEO :</span> <span class="pcolor">박철호 </span></li>
+				<li><span>ADDRESS :</span> <span class="pcolor">서울특별시 강남구 테헤란로 124 4층 (역삼동, 삼원타워) </span></li>
+				<li><span>TEL :</span> <a href="tel:02-6255-8002" class="pcolor">02-6255-8002</a></li>
+				<li><span>FAX :</span> <span class="pcolor">02-569-8069</span></li>
+				<li><span>BUSINESS LICENCE :</span> <span class="pcolor">220-86-20171 <a href="javascript:;" onclick="window.open('http://www.ftc.go.kr/bizCommPop.do?wrkr_no=1234567890','communicationViewPopup','width=750,height=700,scrollbars=yes')">[사업자정보확인]</a></span></li>
+				<li><span>ONLINE LICENCE :</span> <span class="pcolor">강남 제-3339호</span></li>
+				<li><span>PRIVACY OFFICER :</span> <span class="pcolor"> 박소연(<a class="pcolor" href="mailto:pinypine@naver.com">pinypine@naver.com</a>)</span></li>
+				<li>HOSTING PROVIDER : <span class="pcolor">(주)유니윌</span></li>
+			</ul>
+			<p class="copyright">COPYRIGHT (c) <span class="pcolor">(주) 유니윌</span> ALL RIGHTS RESERVED.</p>
+			<div class="escrow"><script type="text/javascript">function f_escrowKicc(){window.open("http://www.easypay.co.kr/escrow/escrow_memb_auth.jsp?memb_id=GA123456", "kicc_escrow", "top=0,left=0,width=800,height=450,scrollbars,menubar=no,resizable,status,location=yes,toolbar=yes");}</script><img src="/proto/camping/data/icon/escrow_mark/kicc.png" style="cursor:pointer;" onclick="f_escrowKicc();"></div>
+		</div>
+	</div>
+</div>
+
+<!-- 하단영역 : 끝 -->
+
+	</div>
+
+</body></html>

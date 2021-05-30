@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.BoardMapper">
+	<!-- 
+	<insert id="insertBoard">
+		<selectKey resultType="int" keyProperty="num" order="BEFORE">
+			select
+			board_seq.nextval from dual
+		</selectKey>
+		insert into board values(#{num},#{writer},#{content},sysdate)
+	</insert>
+
+	<update id="updateBoard">
+		update board set writer=#{writer},content=#{content}
+		where num=#{num}
+	</update>
+
+	<delete id="deleteBoard">
+		delete from board where num=#{num}
+	</delete>
+
+	<select id="selectBoard" resultType="Board">
+		select * from board where
+		num=#{num}
+	</select>
+
+	<select id="selectBoardCount" resultType="int">
+		select count(*) from
+		board
+	</select>
+
+	<select id="selectBoardList" resultType="Board">
+		select * from (select
+		rownum rn, board.* from (select * from board
+		order by num desc) board) where rn between #{startRow} and #{endRow}
+	</select>
+     -->
+    <!-- INFO_BOARD  -->
+    <!-- C -->
+    <insert id="insertInfo">
+	<selectKey resultType="int" keyProperty="infoNo" order="BEFORE">
+			select info_board_sequence.nextval from dual
+	</selectKey>
+		insert into info(info_no, info_writer, info_title, info_content, info_date, info_img, info_count) values(#{infoNo},#{mId},#{infoTitle},#{infoContent},sysdate
+		,#{infoImage},0)
+	</insert>
+	
+	<!-- D -->
+	<delete id="deletInfo">
+		delete from info where info_no = #{infoNo}
+	</delete>
+	
+	<!-- U -->
+	<update id="updateInfo">
+		update info
+		<set>
+			<if test="infoTitle!=null and infoTitle!=''">
+				info_title=#{infoTitle},
+			</if>
+			<if test="infoContent!=null and infoContent!=''">
+				info_content=#{infoContent},
+			</if>
+			<if test="infoImg!=null and infoImg!=''">
+				info_img = #{infoImg}
+			</if>
+		</set>
+		where info_no=#{infoNo}
+	</update>
+	
+	<!-- U : 조회수 -->
+	<update id="updateCountInfo">
+		update info set info_count = info_count+1 where info_no = #{infoNo}
+	</update>
+	
+	<!-- R -->
+	<!-- 전체 리스트 -->
+	<select id="selectInfo" resultType="Info">
+		select * from info where info_no = #{infoNo}
+	</select>
+	<!-- 게시글 총 겟수 -->
+	<select id="selectInfoCount" resultType="int">
+		select count(*) from info
+	</select>
+	<!-- infoTitle 검색 -->
+	<select id="selectInfoTitleInfoList" resultType="Info">
+		select * from (select rownum as rn, info.* from (select * from info where info_Title=#{infoTitle} order by info_no desc) info) 
+			where rn between #{startRow} and #{endRow}
+	</select>
+	<!-- 페이징처리 + 키워드 있으면 키워드 검색 -->
+	<select id="selectSearchInfoList" resultType="Info">
+		select * from (select rownum as rn, info.* from (select * from info
+		<if test="keyword!=null and keyword!=''">
+			where info_title like '%'|| #{keyword} ||'%'     
+			or m_id like  '%'|| #{keyword} ||'%'
+			or info_content like '%'|| #{keyword} ||'%'
+			or info_date like '%'|| #{keyword} ||'%'
+		</if>
+			order by info_no desc) info) where rn between #{startRow} and #{endRow}
+	</select>	
+
+</mapper>

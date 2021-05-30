@@ -1,0 +1,72 @@
+package site.itwill.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import site.itwill.dto.Review;
+import site.itwill.mapper.ReviewMapper;
+
+@Repository
+public class ReviewDAOImpl implements ReviewDAO {
+	@Autowired
+	private SqlSession sqlSession;
+	
+	@Override
+	public int insertReview(Review review) {
+		return sqlSession.getMapper(ReviewMapper.class).insertReview(review);
+	}
+
+	@Override
+	public int deleteReview(int no) {
+		return sqlSession.getMapper(ReviewMapper.class).deleteReview(no);
+	}
+
+	@Override
+	public int updateReview(int no) {
+		return sqlSession.getMapper(ReviewMapper.class).updateReview(no);
+	}
+	
+	@Override
+	public int updateHitsReview(int no) {
+		return sqlSession.getMapper(ReviewMapper.class).updateHitsReview(no);
+	}
+
+	@Override
+	public Review selectReview(int no) {
+		return sqlSession.getMapper(ReviewMapper.class).selectReview(no);
+	}
+
+	@Override
+	public List<Review> selectRmNoReviewList(int rmNo) {
+		return sqlSession.getMapper(ReviewMapper.class).selectRmNoReviewList(rmNo);
+		
+	}
+
+	@Override
+	public List<Review> selectKeywordReviewList(String keyword) {
+		return sqlSession.getMapper(ReviewMapper.class).selectKeywordReviewList(keyword);
+		
+	}
+
+	@Override
+	public List<Review> selectRmNoKeywordReviewList(int rmNo, String keyword) {
+		return sqlSession.getMapper(ReviewMapper.class).selectRmNoKeywordReviewList(rmNo, keyword);
+		
+	}
+
+	@Override
+	public List<String> selectRmNameReviewWrite() {
+		return sqlSession.getMapper(ReviewMapper.class).selectRmNameReviewWrite();
+		
+	}
+
+	@Override
+	public List<Review> selectReviewList() {
+		return sqlSession.getMapper(ReviewMapper.class).selectReviewList();
+		
+	}
+
+}

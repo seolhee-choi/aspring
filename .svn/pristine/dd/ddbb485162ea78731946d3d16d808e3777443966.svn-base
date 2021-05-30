@@ -1,0 +1,17 @@
+package site.itwill.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import site.itwill.dto.Board;
+
+public interface BoardDAO {
+	int insertBoard(Board board);
+	int updateBoard(Board board);
+	int deleteBoard(int num);
+	Board selectBoard(int num);
+	int selectBoardCount();
+	List<Board> selectBoardList(Map<String, Object> map);
+	
+
+}

@@ -1,0 +1,5 @@
+package site.itwill.service;
+
+public class ReviewServiceImpl {
+
+}

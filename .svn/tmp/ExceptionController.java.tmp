@@ -1,0 +1,21 @@
+package site.itwill.controller;
+
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class ExceptionController {
+	
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception exception) {
+<<<<<<< .mine
+		exception.printStackTrace();//예외 기록
+||||||| .r135
+=======
+		//exception.printStackTrace();//
+>>>>>>> .r145
+		return "member/member_error";
+	}
+	
+	
+}

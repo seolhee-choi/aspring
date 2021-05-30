@@ -1,0 +1,367 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="kr">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<title>제주 에이스프링 펜션</title>
+<meta charset="utf-8">
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/board/style.css"> --%>
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+<title>Insert title here</title>
+<style type="text/css">
+.wrap {
+	width: 1200px;
+	margin: 0 auto;
+	position: relative
+}
+
+#board_write .board_write_title {
+	font-size: 20px;
+	color: #333;
+	margin-top: 80px;
+	text-align: left;
+	margin-bottom: 38px
+}
+
+#board_write .board_write_title .board_write_title_bar {
+	width: 3px;
+	background: #333;
+	height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 13px;
+	margin-top: -3px
+}
+
+#board_write .board_write_table {
+	margin-top: 40px;
+	color: #333
+}
+
+#board_write .board_write_table .board_write_table_title {
+	background: #f9f9f9;
+	border: 1px solid #e5e5e5;
+	border-bottom: 0;
+	font-weight: bold;
+	padding: 0;
+	box-sizing: border-box
+}
+
+#board_write .board_write_table table td {
+	border-top: 1px solid #e5e5e5;
+	border-right: 1px solid #e5e5e5;
+	font-size: 13px;
+	padding-left: 20px;
+	box-sizing: border-box;
+	font-family: 'Nanum Gothic';
+	border-collapse: collapse
+}
+
+#board_write select {
+	border: 1px solid #e5e5e5;
+	padding: 10px 0 10px 25px;
+	box-sizing: border-box;
+	padding-left: 25px;
+	color: #333;
+	vertical-align: middle
+}
+
+#board_write input {
+	border: 1px solid #e5e5e5;
+	height: 40px;
+	line-height: 40px;
+	box-sizing: border-box;
+	background: #f9f9f9;
+	color: #333;
+	vertical-align: middle;
+	padding-left: 25px
+}
+
+#board_write input:focus {
+	border: 1px solid #ff4898;
+	outline: none
+}
+
+#board_write select:focus {
+	border: 1px solid #ff4898;
+	outline: none
+}
+
+#board_write label {
+	color: #333
+}
+
+#board_write .bbs_notice_checkbox input {
+	margin-right: 8px;
+	height: 20px;
+	background: none;
+	border: none;
+	padding-left: 0
+}
+
+#board_write textarea.board_write_txt {
+	border: 1px solid #fff;
+	width: 100%;
+	height: 620px;
+	outline: none;
+	resize: none;
+	outline: none;
+	padding: 20px;
+	box-sizing: border-box;
+	overflow-y: scroll
+}
+
+#board_write .board_write_bt {
+	font-size: 0;
+	margin: 65px 0 55px;
+	text-align: center
+	border: 2px solid black;
+	float: left;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: 0 0 40px 50px;
+}
+
+
+.eff {
+	width: 140px;
+	height: 50px;
+	left: -140px;
+	/* background: green; */
+	position: absolute;
+	/* transition: all .5s ease; */
+	z-index: 1;
+}
+
+.button-1 {
+	width: 140px;
+	height: 50px;
+	/* border: green; */
+	float: left;
+	text-align: center;
+	cursor: pointer;
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin: 0 0 40px 0;
+}
+
+.button-1 a {
+	font-family: arial;
+	font-size: 16px;
+	color: #e5e5e5;
+	text-decoration: none;
+	line-height: 50px;
+	/* transition: all .5s ease; */
+	z-index: 2;
+	position: relative;
+} 
+
+.eff-1 {
+	width: 140px;
+	height: 50px;
+	top: -2px;
+	right: -140px;
+	background: #e5e5e5;
+	position: absolute;
+	/* transition: all .5s ease; */
+	z-index: 1;
+}
+
+.button-1:hover .eff-1 {
+	right: 0;
+}
+
+.button-1:hover a {
+	color: white;
+}
+
+#uploadBtn{
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid #e5e5e5;
+    color: #333;
+}
+
+.star_rating {font-size:0; letter-spacing:-4px;}
+.star_rating a {
+    font-size:22px;
+    letter-spacing:0;
+    display:inline-block;
+    margin-left:5px;
+    color:#ccc;
+    text-decoration:none;
+}
+.star_rating a:first-child {margin-left:0;}
+.star_rating a.on {color:#777;}
+
+</style>
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="board_write" class="wrap">
+		<h2 class="board_write_title">
+			<span class="board_write_title_bar">리뷰쓰기</span>
+		</h2>
+		<form id="reviewForm" name="reviewForm" action="review.jsp" method="post" enctype="multipart/form-data">
+		<table width="100%" border="0" cellpadding="0" cellspacing="0"
+			class="board_write_table">
+			<tbody>
+				<tr>
+					<td>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td width="130" height="55" align="center" valign="middle"
+										class="board_write_table_title">객실정보</td>
+									<td width="1070" height="55" align="left" valign="middle">
+										<!-- <select style="width: 120px" name="extra8" id="extra8"
+										onchange="onChangeCategory();">
+											<option value="제품문의" selected>제품문의</option>
+											<option value="배송문의">배송문의</option>
+											<option value="기타문의">기타문의</option>
+									</select> -->
+									<!-- 두 개 이상 결제내역있을 시  선택해서 쓸 수 있게..? -->
+										<!-- <input id="roomInfo" value="Room1(그레이테마)" readonly="readonly"> -->
+										<select style="width: 200px " name="extra8" id="extra8"
+										onchange="onChangeCategory();">
+											<option value="0" selected="selected">객실 선택</option>
+											<option value="1">Room1(그레이테마)</option>
+											<option value="2">Room2(블루테마)</option>
+											<option value="3">Room3(내츄럴테마)</option>
+											<option value="4">Room4(블랙테마)</option>
+									</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<!-- <tr id="category" style>
+					<td>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td width="130" height="55" align="center" valign="middle"
+										class="board_write_table_title">상품명</td>
+									<td width="1070" height="55" align="left" valign="middle">
+										<select style="width: 410px" name="delivery" id="delivery">
+											<option>선택해주세요.</option>
+											<option>1번</option>
+											<option>2번</option>
+									</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr> -->
+				<tr>
+					<td>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td width="130" height="55" align="center" valign="middle"
+										class="board_write_table_title">작성자</td>
+									<td width="1070" height="55" align="left" valign="middle">
+										<input type="text" id="bbs_name" name="bbs_name" value="abc123" readonly="readonly"
+										style="width: 410px;">
+									</td>
+								</tr>
+								<tr>
+									<td width="130" height="55" align="center" valign="middle"
+										class="board_write_table_title">별점</td>
+									<td width="1070" height="55" align="left" valign="middle">
+										<p class="star_rating">
+										    <a href="#" class="on">★</a>
+										    <a href="#" class="on">★</a>
+										    <a href="#" class="on">★</a>
+										    <a href="#">★</a>
+										    <a href="#">★</a>
+										</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td width="130" height="55" align="center" valign="middle"
+										class="board_write_table_title">제목</td>
+									<td width="1070" height="55" align="left" valign="middle">
+										<input type="text" id="bbs_title" name="bbs_title" value
+										style="width: 1020px;">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+							<tbody>
+								<tr>
+									<td width="130" height="620" align="center" valign="middle"
+										style="border-bottom: 1px solid #e5e5e5"
+										class="board_write_table_title">내용</td>
+									<td width="1070" align="left" height="620" valign="top"
+										style="border-bottom: 1px solid #e5e5e5; padding: 0"><textarea
+											class="board_write_txt" name="bbs_review" id="bbs_review"></textarea>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			
+				<tr>
+					<td>
+						<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border-bottom: 2px solid #e5e5e5;">
+							<tbody>
+								<tr>
+									<td width="130" height="55" align="center" valign="middle"
+										class="board_write_table_title">이미지 업로드</td>
+										
+									<td><input type="file" name="file" id="imageFileOpenInput" accept="image/*" style="width: 500px;"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+		<div class="board_write_bt">
+			<div class="button-1">
+				<div class="eff-1"></div>
+				<a href="javascript:reviewForm.submit()"> 리뷰등록 </a>
+			</div>
+			<div class="button-1">
+				<div class="eff-1"></div>
+				<a href="#"> 다시쓰기 </a>
+			</div>
+			<div class="button-1">
+				<div class="eff-1"></div>
+				<a href="review.jsp"> 목록보기 </a>
+			</div>
+		</div>
+	</div>
+	
+<script type="text/javascript">
+$( ".star_rating a" ).click(function() {
+     $(this).parent().children("a").removeClass("on");
+     $(this).addClass("on").prevAll("a").addClass("on");
+     return false;
+});
+</script>
+</body>
+</html>

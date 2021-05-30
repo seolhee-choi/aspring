@@ -1,0 +1,70 @@
+package site.itwill.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
+
+import site.itwill.dto.Review;
+import site.itwill.service.ReviewService;
+import site.itwill.util.Pager;
+
+@Controller
+public class ReviewController {
+	@Autowired
+	private ReviewService reviewService;
+	
+	@RequestMapping("/review")
+	public String boardReview() {
+		return "board/review";
+	}
+	
+	@RequestMapping(value = "/review_list", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> ReviewList(@RequestParam(defaultValue = "1") int pageNum) {
+		//System.out.println("pageNum = "+pageNum);
+		int totalBoard=reviewService.getReviewCount(); 
+		int pageSize=5; 
+		int blockSize=5;
+		
+		Pager pager=new Pager(pageNum, totalBoard, pageSize, blockSize);
+		
+		Map<String, Object> pagerMap=new HashMap<String, Object>();
+		pagerMap.put("startRow", pager.getStartRow()); //mapper에 startRow, endRow 변수명?필드명? 똑같아야해요
+		pagerMap.put("endRow", pager.getEndRow());
+		
+		Map<String, Object> returnMap=new HashMap<String, Object>();
+		returnMap.put("reviewList", reviewService.getSearchReviewList(pagerMap));
+		returnMap.put("pager",pager);
+		
+		return returnMap;
+	}
+	
+	@RequestMapping(value="/review_write", method = RequestMethod.POST)
+	@ResponseBody
+	public String reviewAdd(@RequestBody Review review) {
+		review.setRvContent(HtmlUtils.htmlEscape(review.getRvContent()));
+		reviewService.addReview(review);
+		return "success";
+	}
+	
+	@RequestMapping("/review_modify")
+	public String modifyReview() {
+		return "board/review_modify";
+	}
+	
+	@RequestMapping("/review_detail")
+	public String detailReview() {
+		return "board/review_detail";
+	}
+	
+	
+}

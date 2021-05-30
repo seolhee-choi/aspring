@@ -1,0 +1,17 @@
+package site.itwill.service;
+
+import java.util.List;
+
+import site.itwill.dto.Review;
+
+public interface ReviewService {
+	int insertReview(Review review);
+	int deleteReview(int rvNo);
+	int updateReview(Review review);
+	int updateHitsReview(int rvNo);
+	Review selectReview(int rvNo);
+	
+	List<Review> selectRmNoReviewList(int rmNo);
+	List<String> selectRmNameReviewWrite(String m_id);
+	List<Review> selectSearchReviewList(String keyword);
+}

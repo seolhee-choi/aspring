@@ -1,0 +1,36 @@
+package site.itwill.dto;
+
+public class ReviewReservationRoom {
+	private Review review;
+	private Reservation reservation;
+	private Room room;
+	
+	public ReviewReservationRoom() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Review getReview() {
+		return review;
+	}
+
+	public void setReview(Review review) {
+		this.review = review;
+	}
+
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
+}

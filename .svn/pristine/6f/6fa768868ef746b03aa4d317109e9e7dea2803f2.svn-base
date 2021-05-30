@@ -1,0 +1,36 @@
+package site.itwill.service;
+
+import java.util.List;
+import java.util.Map;
+
+import site.itwill.dto.Member;
+import site.itwill.dto.Reservation;
+import site.itwill.dto.ReservationJoin;
+import site.itwill.dto.ReservationSearch;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.Room;
+import site.itwill.dto.RoomCheck;
+
+public interface ReservationService {
+	List<RoomCheck> getRoomCheckList(ReservationTwo reservationTwo);
+	List<Room> getAllRoomL();
+	List<Room> getAvailableRoom(ReservationTwo reservationTwo);
+	int getCheckAvailable(ReservationTwo reservationTwo);
+	Member addRsv(Reservation reservation);
+	
+	List<ReservationJoin> getRsvList();
+	List<ReservationJoin> getDynamicRsvList(ReservationSearch rsvSearch);
+	
+	int getMyRsvCount(String mId);
+	List<ReservationJoin> getMyRsvList(Map<String, Object> map);
+	ReservationJoin getRsvOne(int rsvNo);
+	
+	int modifyRsvPayment(int rsvNo);
+	int modifyRsvCancel1(int rsvNo);
+	
+	Room getRoomOne(int rmNo);
+	
+	//------------------------------------------------------------------------------
+	
+	Member getTestMember(String mId);
+}

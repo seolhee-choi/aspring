@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.ReservationMapper">
+
+	<!-- 모든객실 예약가능여부 체크 -->
+	<resultMap type="RoomCheck" id="roomCheckResultMap">
+		<id column="rm_no" property="rmNo" />
+		<result column="rm_name" property="rmName" />
+		<result column="rm_ppl" property="rmPpl" />
+		<result column="rm_max" property="rmMax" />
+		<result column="rm_img" property="rmImg" />
+		<result column="rm_content" property="rmContent" />
+		<result column="rm_price" property="rmPrice" />
+		<result column="rm_check" property="rmCheck" />
+	</resultMap>
+	<select id="selectRoomCheck" resultMap="roomCheckResultMap">
+	<![CDATA[
+		select room.*,
+		(
+		    select count(*) from reservation where room.rm_no=reservation.rm_no and
+		    to_char(rsv_checkin, 'yyyy-mm-dd hh24:mi:ss') < #{checkoutTime} and
+		    to_char(rsv_checkout, 'yyyy-mm-dd hh24:mi:ss') > #{checkinTime} and
+		    (rsv_status=1 or rsv_status=2 or rsv_status=4)
+		) rm_check from room where room.rm_no!=99 order by room.rm_no
+	]]>
+	</select>
+	
+	<select id="selectAllRoomL" resultMap="roomCheckResultMap">
+		select * from room order by rm_no
+	</select>
+
+	<!-- 체크인, 체크아웃날짜 전달받아 해당 기간의 예약 가능한 객실만 검색 -->
+	<resultMap type="Room" id="roomResultMap">
+		<id column="rm_no" property="rmNo" />
+		<result column="rm_name" property="rmName" />
+		<result column="rm_ppl" property="rmPpl" />
+		<result column="rm_max" property="rmMax" />
+		<result column="rm_img" property="rmImg" />
+		<result column="rm_content" property="rmContent" />
+		<result column="rm_price" property="rmPrice" />
+	</resultMap>
+	<select id="selectAvailableRoom" resultMap="roomResultMap">
+	<![CDATA[
+		select * from room 
+		where 0=(
+		select count(*) from reservation 
+		where room.rm_no=reservation.rm_no and to_char(rsv_checkin, 'yyyy-mm-dd hh24:mi:ss') < #{checkoutTime} and 
+		to_char(rsv_checkout, 'yyyy-mm-dd hh24:mi:ss') > #{checkinTime} and 
+		(rsv_status=1 or rsv_status=2 or rsv_status=4)
+		) and room.rm_no!=99
+		order by rm_no
+	]]>
+	</select>
+	
+	<!-- 객실번호, 체크인, 체크아웃 날짜를 전달받아 선택한 기간에 중복된 예약이 있는지 확인 -->
+	<!-- 결과 0:예약가능, 1:예약불가 -->
+	<select id="selectCheckAvailable" resultType="int">
+	<![CDATA[
+		select count(*) from reservation where rm_no=#{rmNo} and 
+		to_char(rsv_checkin, 'yyyy-mm-dd hh24:mi:ss') < #{checkoutTime} and 
+		to_char(rsv_checkout, 'yyyy-mm-dd hh24:mi:ss') > #{checkinTime} and 
+		(rsv_status=1 or rsv_status=2 or rsv_status=4)
+	]]>
+	</select>
+	
+	<!-- 객실번호를 전달받아 객실정보검색 -->
+	<select id="selectRoomOne" resultMap="roomResultMap">
+		select * from room where rm_no=#{rmNo}
+	</select>
+	
+	<!-- 예약등록 -->
+	<insert id="insertRsv">
+		insert into reservation values(
+		reservation_seq.nextval, 
+		#{rmNo}, 
+		#{mId}, 
+		#{rsvPpl}, 
+		to_date(#{rsvCheckin}, 'yyyy-mm-dd hh24:mi:ss'), 
+		to_date(#{rsvCheckout}, 'yyyy-mm-dd hh24:mi:ss'), 
+		#{rsvDatecount}, 
+		sysdate, 
+		null, 
+		#{rsvPayment}, 
+		null, 
+		#{rsvMuse}, 
+		#{rsvMsave}, 
+		1
+		)
+	</insert>
+	
+	<!-- 모든 예약 리스트 검색(회원, 객실 JOIN) -->
+	<resultMap type="ReservationJoin" id="RsvJoinResultMap">
+		<id column="rsv_no" property="rsvNo" />
+		<result column="rm_no" property="rmNo" />
+		<result column="m_id" property="mId" />
+		<result column="rsv_ppl" property="rsvPpl" />
+		<result column="rsv_checkin" property="rsvCheckin" />
+		<result column="rsv_checkout" property="rsvCheckout" />
+		<result column="rsv_datecount" property="rsvDatecount" />
+		<result column="rsv_date" property="rsvDate" />
+		<result column="rsv_cancel_date" property="rsvCancelDate" />
+		<result column="rsv_payment" property="rsvPayment" />
+		<result column="rsv_payment_date" property="rsvPaymentDate" />
+		<result column="rsv_muse" property="rsvMuse" />
+		<result column="rsv_msave" property="rsvMsave" />
+		<result column="rsv_status" property="rsvStatus" />
+		<association property="member" javaType="Member">
+			<id column="m_id" property="mId"/>
+			<result column="m_name" property="mName"/>
+			<result column="m_phone" property="mPhone"/>
+			<result column="m_email" property="mEmail"/>
+			<result column="m_mileage" property="mMileage"/>
+			<result column="m_status" property="mStatus"/>
+		</association>
+		<association property="room" javaType="Room">
+			<id column="rm_no" property="rmNo"/>
+			<result column="rm_name" property="rmName"/>
+			<result column="rm_ppl" property="rmPpl"/>
+			<result column="rm_max" property="rmMax"/>
+			<result column="rm_img" property="rmImg"/>
+			<result column="rm_content" property="rmContent"/>
+			<result column="rm_price" property="rmPrice"/>
+		</association>
+	</resultMap>
+	<select id="selectRsvList" resultMap="RsvJoinResultMap">
+		select * from reservation join member on reservation.m_id=member.m_id join room on reservation.rm_no=room.rm_no order by reservation.rm_no
+	</select>
+	
+	<!-- 동적SQL - 조건에 맞는 리스트 검색(회원, 객실 JOIN) -->
+	<select id="selectDynamicRsvList" resultMap="RsvJoinResultMap">
+		select * from reservation join member on reservation.m_id=member.m_id join room on reservation.rm_no=room.rm_no
+		<where>
+			<if test="search!=null and search!=''"> 
+				${keyword} like '%'||#{search}||'%'
+			</if>
+			<if test="statusList!=null"> 
+				and rsv_status in 
+				<foreach collection="statusList" item="stList" open="(" close=")" separator=",">
+					#{stList}
+				</foreach>
+			</if>
+			<if test="rmList!=null">
+				and reservation.rm_no in 
+				<foreach collection="rmList" item="rmL" open="(" close=")" separator=",">
+					#{rmL}
+				</foreach>
+			</if>
+			<if test="datesearch1!=null and datesearch1!=''">
+				<![CDATA[
+				and ${datekeyword} > #{datesearch1}
+				]]>
+			</if>
+			<if test="datesearch2!=null and datesearch2!=''">
+				<![CDATA[
+				and ${datekeyword} < #{datesearch2}
+				]]>
+			</if>
+		</where>
+		order by rsv_no desc
+	</select>
+	
+	
+	<select id="selectMyRsvCount" resultType="int">
+	<![CDATA[
+		select count(*) from reservation where m_id=#{mId} and reservation.rsv_checkout>sysdate and (reservation.rsv_status=1 or reservation.rsv_status=2 or reservation.rsv_status=4)
+	]]>
+	</select>
+	
+	<select id="selectMyRsvList" resultMap="RsvJoinResultMap">
+	<![CDATA[
+		select * from 
+		(
+		select rownum rn, reservation.* from 
+		(select * from reservation join member on reservation.m_id=member.m_id join room on reservation.rm_no=room.rm_no 
+			where reservation.m_id=#{mId} and reservation.rsv_checkout>sysdate and (reservation.rsv_status=1 or reservation.rsv_status=2 or reservation.rsv_status=4) order by rsv_date desc)
+		reservation
+		) 
+		where rn between #{startRow} and #{endRow}
+	]]>
+	</select>
+	
+	<select id="selectMyRsvCount2" resultType="int">
+	<![CDATA[
+		select count(*) from reservation where m_id=#{mId} and (reservation.rsv_checkout<sysdate or (reservation.rsv_status=3 or reservation.rsv_status=5))
+	]]>
+	</select>
+	
+	<select id="selectMyRsvList2" resultMap="RsvJoinResultMap">
+	<![CDATA[
+		select * from 
+		(
+		select rownum rn, reservation.* from 
+		(select * from reservation join member on reservation.m_id=member.m_id join room on reservation.rm_no=room.rm_no 
+			where reservation.m_id=#{mId} and (reservation.rsv_checkout<sysdate or (reservation.rsv_status=3 or reservation.rsv_status=5)) order by rsv_date desc)
+		reservation
+		) 
+		where rn between #{startRow} and #{endRow}
+	]]>
+	</select>
+
+	<!-- 예약번호를 전달받아 예약조회(상세페이지 - 단일행) 회원,객실 JOIN -->
+	<select id="selectRsvOne" resultMap="RsvJoinResultMap">
+		select * from reservation join member on reservation.m_id=member.m_id join room on reservation.rm_no=room.rm_no 
+			where rsv_no=#{rsvNo} 
+	</select>
+	
+	<!-- 입금완료 -->
+	<update id="updateRsvPayment">
+		update reservation set rsv_payment_date=sysdate, rsv_status=2 where rsv_no=#{rsvNo}
+	</update>
+	
+	<!-- 입금전취소 -->
+	<update id="updateRsvCancel1">
+		update reservation set rsv_cancel_date=sysdate, rsv_status=3 where rsv_no=#{rsvNo}
+	</update>
+	
+	<!-- 환불대기 상태로 변경 -->
+	<update id="updateRsvCancel2">
+		update reservation set rsv_cancel_date=sysdate, rsv_status=4 where rsv_no=#{rsvNo}
+	</update>
+	
+	<!-- 환불완료 상태로 변경 -->
+	<update id="updateRsvRefundOk">
+		update reservation set rsv_status=5 where rsv_no=#{rsvNo}
+	</update>
+	
+	<!-- 마일리지 테스트 -->
+	<select id="selectTestMember" resultType="Member">
+		select * from member where m_id=#{mId}
+	</select>
+	
+	<!-- 회원 아이디, 사용 마일리지를 전달받아 회원의 마일리지 마이너스 -->
+	<update id="updateMileageMinus" parameterType="map">
+		update member set m_mileage=m_mileage-#{minusM} where m_id=#{mId}
+	</update>
+	
+	<!-- 회원 아이디, 적립 마일리지를 전달받아 회원의 마일리지 플러스 -->
+	<update id="updateMileagePlus" parameterType="map">
+		update member set m_mileage=m_mileage+#{plusM} where m_id=#{mId}
+	</update>
+	
+</mapper>

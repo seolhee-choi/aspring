@@ -1,0 +1,23 @@
+package site.itwill.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import site.itwill.dao.ReservationDAO;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.RoomCheck;
+
+@Service
+public class ReservationServiceImpl implements ReservationService{
+	
+	@Autowired
+	private ReservationDAO reservationDAO;
+
+	@Override
+	public List<RoomCheck> getRoomCheckList(ReservationTwo reservationTwo) {
+		return reservationDAO.selectRoomCheck(reservationTwo);
+	}
+
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.MemberMapper">	
+	<insert id="insertMember">
+		insert into member values(#{mId},#{mPw},#{mName},#{mPhone},#{mEmail},0,0)
+	</insert>
+	
+	<update id="updateMember" >
+		update member
+		<set>
+		 	<if test="mPw!=null and mPw!=''">
+		 		m_pw=#{mPw},
+		 	</if>
+		 	<if test="mName!=null and mName!=''">
+		 		 m_name=#{mName},
+		 	</if>
+		 	<if test="mPhone!=null and mPhone!=''">
+		 		m_phone=#{mPhone},
+		 	</if>
+		 	<if test="mEmail!=null and mEmail!=''">
+		 		m_email=#{mEmail},
+		 	</if>
+		 	<if test="mMileage!=null and mMileage!=''">
+			 	m_mileage=#{mMileage},
+			 </if>
+			 <if test="mStatus!=null and mStatus!=''">
+			 	m_status=#{mStatus}
+			 </if>
+		 </set>
+		 where m_id=#{mId}
+	</update>
+	
+	<update id="deleteMember">
+		update member set m_status=1 where m_id=#{mId}
+	</update>
+	
+	<select id="selectId" resultType="Member">
+		select m_id from member where m_name=#{mName} and m_email=#{mEmail}
+	</select>
+	
+	<update id="updatePw" >
+		update member set m_pw=#{mPw} where m_id=#{mId} and m_email=#{mEmail}
+	</update>
+	
+	<select id="selectMember" resultType="Member">
+		select * from member where m_id=#{mId}	
+	</select>
+	
+	<select id="selectMemberList" resultType="Member">
+		select * from member order by m_id 
+	</select>
+	
+	<!-- 동적SQL - 조건에 맞는 리스트 검색(회원, 객실 JOIN) -->
+	<!-- <select id="selectDynamicMemList" resultMap="Member">
+		select * from member 
+		<where>
+			<if test="search!=null and search!=''"> 
+				${keyword} like '%'||#{search}||'%'
+			</if>
+			<if test="statusList!=null"> 
+				and m_status in 
+			</if>
+		</where>
+		order by m_id desc
+	</select>  -->
+</mapper>

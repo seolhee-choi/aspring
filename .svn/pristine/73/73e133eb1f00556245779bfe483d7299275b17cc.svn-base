@@ -1,0 +1,31 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class AdminRoomSaleController {
+	
+	
+	/* ============== */
+
+	
+	
+	@RequestMapping("/admin/test5")
+	public String test05() {
+		return "admin/dist/admin_sales";
+	}
+	
+	@RequestMapping("/admin/test6")
+	public String test06() {
+		return "admin/dist/admin_rooms";
+	}
+	
+	@RequestMapping("/admin/test7")
+	public String test07() {
+		return "admin/dist/admin_room_modify";
+	}
+	
+	
+	
+}

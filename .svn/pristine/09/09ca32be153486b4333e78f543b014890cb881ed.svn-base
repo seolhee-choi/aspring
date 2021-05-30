@@ -1,0 +1,36 @@
+package site.itwill.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import site.itwill.dto.Member;
+import site.itwill.dto.Reservation;
+import site.itwill.dto.ReservationJoin;
+import site.itwill.dto.ReservationSearch;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.Room;
+import site.itwill.dto.RoomCheck;
+
+public interface ReservationDAO {
+	List<RoomCheck> selectRoomCheck(ReservationTwo reservationTwo);
+	List<Room> selectAllRoomL();
+	List<Room> selectAvailableRoom(ReservationTwo reservationTwo);
+	int selectCheckAvailable(ReservationTwo reservationTwo);
+	Room selectRoomOne(int rmNo);
+	int insertRsv(Reservation reservation);
+	
+	List<ReservationJoin> selectRsvList();
+	List<ReservationJoin> selectDynamicRsvList(ReservationSearch rsvSearch);
+	
+	int selectMyRsvCount(String mId);
+	List<ReservationJoin> selectMyRsvList(Map<String, Object> map);
+	ReservationJoin selectRsvOne(int rsvNo);
+	
+	int updateRsvPayment(int rsvNo);
+	int updateRsvCancel1(int rsvNo);
+	//------------------------------------------------------------------------------
+	
+	Member selectTestMember(String mId);
+	int updateMileageMinus(Map<String, Object> minusMileage);
+	int updateMileagePlus(Map<String, Object> plusMileage);
+}

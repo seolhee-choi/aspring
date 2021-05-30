@@ -1,0 +1,22 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class TestController {
+	@RequestMapping("/")
+	public String tiles() {
+		return "layout/welcome"; 
+	}
+	
+	@RequestMapping("/location")
+	public String tiles1() {
+		return "layout/location"; 
+	}
+	
+
+	
+	
+	
+}

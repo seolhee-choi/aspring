@@ -1,0 +1,38 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class BookController {
+	
+	/* =========================== */
+	@RequestMapping("/rsvtest1")
+	public String rsvtest1() {
+		return "book/book_cancel";
+	}
+	@RequestMapping("/rsvtest2")
+	public String rsvtest2() {
+		return "book/book_confirm";
+	}
+	@RequestMapping("/rsvtest3")
+	public String rsvtest3() {
+		return "book/book_guidance";
+	}
+	@RequestMapping("/rsvtest4")
+	public String rsvtest4() {
+		return "book/book_option";
+	}
+	@RequestMapping("/rsvtest5")
+	public String rsvtest5() {
+		return "book/book_search1";
+	}
+	@RequestMapping("/rsvtest6")
+	public String rsvtest6() {
+		return "book/book_search2";
+	}
+	
+	/* =========================== */
+	
+	
+}

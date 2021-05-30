@@ -1,0 +1,60 @@
+package site.itwill.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import site.itwill.dto.ReservationTwo;
+import site.itwill.service.ReservationService;
+
+@Controller
+@RequestMapping("/rsv")
+public class BookController {
+	
+	@Autowired
+	private ReservationService reservationService;
+	
+	@RequestMapping("/stepOne")
+	public String reservation1() {
+		return "book/rsv_01";
+	}
+	
+	@RequestMapping(value = "/stepTwo")
+	public String roomCheck(@ModelAttribute ReservationTwo reservationTwo, Model model) {
+		model.addAttribute("roomList", reservationService.getRoomCheckList(reservationTwo));
+		return "book/rsv_02";
+	}
+	
+	
+	
+	/* 
+	@RequestMapping("/rsvtest1")
+	public String rsvtest1() {
+		return "book/book_cancel";
+	}
+	@RequestMapping("/rsvtest2")
+	public String rsvtest2() {
+		return "book/book_confirm";
+	}
+	@RequestMapping("/rsvtest3")
+	public String rsvtest3() {
+		return "book/book_guidance";
+	}
+	@RequestMapping("/rsvtest4")
+	public String rsvtest4() {
+		return "book/book_option";
+	}
+	@RequestMapping("/rsvtest5")
+	public String rsvtest5() {
+		return "book/book_search1";
+	}
+	@RequestMapping("/rsvtest6")
+	public String rsvtest6() {
+		return "book/book_search2";
+	}
+	*/
+	
+	
+}

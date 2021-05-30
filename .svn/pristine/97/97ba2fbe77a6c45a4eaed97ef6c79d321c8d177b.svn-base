@@ -1,0 +1,14 @@
+package site.itwill.dao;
+
+import java.util.List;
+
+import site.itwill.dto.Member;
+
+public interface MemberDAO {
+	int insertMember(Member member);
+	int updateMember(Member member);
+	int modifyMember(Member member);
+	int deleteMember(String mId);
+	Member selectMember(String mId);
+	List<Member> selectMemberList();
+}

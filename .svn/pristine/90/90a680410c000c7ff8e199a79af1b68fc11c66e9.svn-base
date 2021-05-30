@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.itwill.mapper.ReviewMapper">
+	<!-- 테이블 생성하고 sql문들 오라클에서 먼저 실행해보기! 구글시트에 sql문들로~! -->
+	
+	<insert id="insertReview">
+		<selectKey resultType="int" keyProperty="no" order="BEFORE">
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into review values(#{no},#{id},#{rmNo},#{rsvNo},#{title},#{content},#{img},sysdate,0)
+	</insert>
+	
+	<delete id="deleteReview">
+		delete from review where rv_no=#{No}
+	</delete>
+	
+	<update id="updateReview">
+		update review set rv_title=#{title},rv_content={content},rv_img=#{img} where rv_no=#{no}
+	</update>
+	
+	<update id="updateHitsReview">
+		update review set rv_hits=rv_hits+1 where rv_no=#{no}	
+	</update>
+	
+	<select id="selectReview"  resultType="Review">
+		select * from review where rv_no=#{no}
+	</select>
+
+	<select id="selectRmNoReviewList" resultType="Review">
+		select * from review where rm_no=#{rmNo} order by rv_no desc
+	</select>
+	
+	<select id="selectKeywordReviewList"  resultType="Review">
+		select * from review where rv_title like '%' || ? || '%' or m_id like  '%' || ? || '%'  or rv_content like '%' || ? || '%'  or rv_write_date like '%' || ? || '%' 
+	</select>
+	
+	<select id="selectRmNoKeywordReviewList"  resultType="Review">
+		select * from review where  rv_no=#{no} and rv_title like '%' || ? || '%' or m_id like  '%' || ? || '%'  or rv_content like '%' || ? || '%'  or rv_write_date like '%' || ? || '%' 	
+	</select>
+	
+	<select id="selectRmNameReviewWrite"  resultType="string">
+		select rm.rm_name
+		from review rv 
+		join room rm on rv.rm_no=rm.rm_no
+		join reservation rsv on rv.rsv_no=rsv.rsv_no
+		where rsv.rsv_status=2 and rsv.rsv_checkout+14>=sysdate
+	</select>
+	
+	<!-- paging -->
+	<select id="selectReviewList" resultType="Review">
+		select * from review order by rv_no desc
+	</select> 
+	
+	
+	
+	
+</mapper>
+
+

@@ -1,0 +1,20 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class BoardController {
+	
+	
+	/* =========================== */
+	@RequestMapping("/boardtest1")
+	public String boardtest1() {
+		return "board/board_notice";
+	}
+	
+	/* =========================== */
+	
+	
+	
+}

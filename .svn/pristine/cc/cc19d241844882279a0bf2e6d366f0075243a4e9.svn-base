@@ -1,0 +1,63 @@
+package site.itwill.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import site.itwill.dao.ReviewDAO;
+import site.itwill.dto.Review;
+@Service
+public class ReviewServiceImpl implements ReviewService {
+	@Autowired
+	private ReviewDAO reviewDAO;
+	
+	@Override
+	public int insertReview(Review review) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteReview(int rvNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateReview(Review review) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateHitsReview(int rvNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Review selectReview(int rvNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Review> selectRmNoReviewList(int rmNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> selectRmNameReviewWrite(String m_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Review> selectSearchReviewList(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

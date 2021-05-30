@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 메일 전송 기능을 제공하는 JavaMailSenderImpl 클래스를 Spring Bean으로 등록  -->
+	<!-- EmailSendBean 클래스의 필드에 의존성 주입을 위한 Spring Bean -->
+	<!-- SMTP 서비스를 제공하는 메일서버의 정보를 JavaMailSenderImpl 클래스의 필드값으로 전달하여 저장 -->
+	<bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="javaMailSender">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="aspring0404"/>
+		<property name="password" value="itwill0404!"/>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 핵심관심모듈이 선언된 클래스를 Spring Bean으로 등록 -->
+	<bean class="site.itwill.util.EmailSendBean" id="emailSendBean">
+		<property name="mailSender" ref="javaMailSender"/>
+	</bean>
+	
+	
+	<bean class="site.itwill.util.EmailSendAdvice" id="emailSendAdvice"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* sendEmail(..))" id="emailSendPointCut"/>
+		
+		
+		<aop:aspect ref="emailSendAdvice">
+			<aop:before method="beforeLog" pointcut-ref="emailSendPointCut"/>
+			<aop:after-returning method="successLog" pointcut-ref="emailSendPointCut" returning="email"/>
+			<aop:after-throwing method="failLog" pointcut-ref="emailSendPointCut" throwing="exception"/>
+		</aop:aspect>
+	</aop:config>	
+	
+</beans>

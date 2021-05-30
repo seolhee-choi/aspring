@@ -1,0 +1,43 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MemberController {
+	
+
+	@RequestMapping("/m01")
+	public String m01() {
+		return "member/member_id_pw_find"; 
+	}
+	
+	@RequestMapping("/m02")
+	public String m02() {
+		return "member/member_join"; 
+	}
+	
+	@RequestMapping("/m03")
+	public String m03() {
+		return "member/member_login"; 
+	}
+	
+	@RequestMapping("/m04")
+	public String m04() {
+		return "member/member_mileage"; 
+	}
+	
+	@RequestMapping("/m05")
+	public String m05() {
+		return "member/member_mybook"; 
+	}
+	
+	@RequestMapping("/m06")
+	public String m06() {
+		return "member/member_mypage"; 
+	}
+	/* =========================== */
+	
+	
+	
+}

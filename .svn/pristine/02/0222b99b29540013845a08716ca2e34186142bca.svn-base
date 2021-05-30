@@ -1,0 +1,443 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<style type="text/css">
+.btns{
+	background: #e9ecef;
+	font-weight: bold;
+	font-size: 15px;
+}
+</style>
+
+<link href="${pageContext.request.contextPath }/admin/dist/css/styles.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<style type="text/css">
+#calendar{
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	
+	
+}
+
+#calendar td {
+	width: 170px; 
+	height: 140px;
+	text-align: left;
+	font-size: 15px;
+	font-weight:600;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	vertical-align: top;
+	padding: 10px;
+}
+
+#tbCalendarYM{
+	text-align: center;
+	font-size: 30px;
+	background-color: #72c02c;
+	opacity: 0.7;
+	color: white;
+	height: 60px;
+}
+.prev2, .next2{
+	background-color: #72c02c;	
+	opacity: 0.7;
+	text-align: center;
+	font-size: 30px;
+	color: white;
+	cursor: pointer;
+}
+.prev2:hover, .next2:hover{
+	opacity: 0.9;
+}
+
+.week{
+	width: 180px;
+	height: 60px;
+	text-align: left;
+	font-size: 18px;
+	font-weight:bold;
+	border: 1px solid #ddd;
+	border-collapse: collapse;
+	padding-left: 10px;
+	text-align: center;
+	background-color: #FCFCFC;
+}
+.reservation{
+	margin-bottom: 0px;
+}
+
+.reservation a{
+	font-size: 13px;
+	color: #8C8C8C;
+	font-weight:normal;
+	text-decoration:none;
+}
+</style>
+</head>
+			<main>
+				<div class="container-fluid">
+					<h1 class="mt-4">예약관리</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a href="index.jsp">관리자 메인</a>
+						</li>
+						<li class="breadcrumb-item active">예약목록</li>
+					</ol>
+					
+					<!-- 달력 START -->
+						<table id="calendar">
+							<tr>
+								<th class="prev2" onclick="prevCalendar()">&lt;</th>
+								<th align="center" id="tbCalendarYM" colspan="5">yyyy년 m월</th>
+								<th class="next2" onclick="nextCalendar()">&gt;</th>
+							</tr>
+							<tr>
+								<th class="week">
+									<font color="red">일</font>
+								</th>
+								<th class="week">월</th>
+								<th class="week">화</th>
+								<th class="week">수</th>
+								<th class="week">목</th>
+								<th class="week">금</th>
+								<th class="week">
+									<font color="blue">토</font>
+								</th>
+							</tr>
+						</table><br><br>
+						<script type="text/javascript">
+						var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
+						var date = new Date();//today의 Date를 세어주는 역할
+						
+						function prevCalendar() {//이전 달
+							// 이전 달을 today에 값을 저장하고 달력에 today를 넣어줌
+							//today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+							//getMonth()는 현재 달을 받아 오므로 이전달을 출력하려면 -1을 해줘야함
+							today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+							buildCalendar(); //달력 cell 만들어 출력 
+						}
+						
+						function nextCalendar() {//다음 달
+							// 다음 달을 today에 값을 저장하고 달력에 today 넣어줌
+							//today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+							//getMonth()는 현재 달을 받아 오므로 다음달을 출력하려면 +1을 해줘야함
+							today = new Date(today.getFullYear(), today.getMonth() + 1, today
+									.getDate());
+							buildCalendar();//달력 cell 만들어 출력
+						}
+						
+						function buildCalendar() {//현재 달 달력 만들기
+							var doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+							//이번 달의 첫째 날,
+							//new를 쓰는 이유 : new를 쓰면 이번달의 로컬 월을 정확하게 받아온다.     
+							//new를 쓰지 않았을때 이번달을 받아오려면 +1을 해줘야한다. 
+							//왜냐면 getMonth()는 0~11을 반환하기 때문
+							var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+							//이번 달의 마지막 날
+							//new를 써주면 정확한 월을 가져옴, getMonth()+1을 해주면 다음달로 넘어가는데
+							//day를 1부터 시작하는게 아니라 0부터 시작하기 때문에 
+							//대로 된 다음달 시작일(1일)은 못가져오고 1 전인 0, 즉 전달 마지막일 을 가져오게 된다
+							var tbCalendar = document.getElementById("calendar");
+							//날짜를 찍을 테이블 변수 만듬, 일 까지 다 찍힘
+							var tbCalendarYM = document.getElementById("tbCalendarYM");
+							//테이블에 정확한 날짜 찍는 변수
+							//innerHTML : js 언어를 HTML의 권장 표준 언어로 바꾼다
+							//new를 찍지 않아서 month는 +1을 더해줘야 한다. 
+							tbCalendarYM.innerHTML = today.getFullYear() + "년 "
+									+ (today.getMonth() + 1) + "월";
+						
+							/*while은 이번달이 끝나면 다음달로 넘겨주는 역할*/
+							while (tbCalendar.rows.length > 2) {
+								//열을 지워줌
+								//기본 열 크기는 body 부분에서 2로 고정되어 있다.
+								tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+								//테이블의 tr 갯수 만큼의 열 묶음은 -1칸 해줘야지 
+								//30일 이후로 담을달에 순서대로 열이 계속 이어진다.
+							}
+							var row = null;
+							row = tbCalendar.insertRow();
+							//테이블에 새로운 열 삽입//즉, 초기화
+							var cnt = 0;// count, 셀의 갯수를 세어주는 역할
+							// 1일이 시작되는 칸을 맞추어 줌
+							var prev_lastDate=new Date(today.getFullYear(), today.getMonth(), 0);
+							var prev_start=(prev_lastDate.getDate())-(doMonth.getDay()-1);
+							for (i = 0; i < doMonth.getDay(); i++) {
+								/*이번달의 day만큼 돌림*/			
+								cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
+								cell.innerHTML ="<font color='#CFCFCF'>"+prev_start+"</font>";
+								cell.id=today.getFullYear()+"-"+(today.getMonth())+"-"+prev_start;
+								prev_start=prev_start+1;
+								cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
+							}
+							/*달력 출력*/
+							for (i = 1; i <= lastDate.getDate(); i++) {
+								//1일부터 마지막 일까지 돌림
+								cell = row.insertCell();//열 한칸한칸 계속 만들어주는 역할
+								cell.innerHTML = i;//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+								cell.id=today.getFullYear()+"-"+(today.getMonth()+1)+"-"+i;
+								cnt = cnt + 1;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
+								if (cnt % 7 == 1) {/*일요일 계산*/
+									//1주일이 7일 이므로 일요일 구하기
+									//월화수목금토일을 7로 나눴을때 나머지가 1이면 cnt가 1번째에 위치함을 의미한다
+									cell.innerHTML = "<font color=red>" + i +"</font>";
+									//1번째의 cell에만 색칠
+								}
+								if (cnt % 7 == 0) {/* 1주일이 7일 이므로 토요일 구하기*/
+									//월화수목금토일을 7로 나눴을때 나머지가 0이면 cnt가 7번째에 위치함을 의미한다
+									cell.innerHTML = "<font color=blue>" +i+"</font>";
+									//7번째의 cell에만 색칠
+									row = calendar.insertRow();
+									//토요일 다음에 올 셀을 추가
+								}
+								/*오늘의 날짜에 노란색 칠하기*/
+								if (today.getFullYear() == date.getFullYear()
+										&& today.getMonth() == date.getMonth()
+										&& i == date.getDate()) {
+									//달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
+									cell.bgColor = "#FFFFE4";//셀의 배경색을 노랑으로
+								}		
+							}
+							
+							//이번달 마지막일자 이후에 다음달 일자 회색 글씨로 채워주는 for문
+							var next_firstDate=new Date(today.getFullYear(), today.getMonth()+1, 1);
+							var next_start=next_firstDate.getDate();
+							for(i=lastDate.getDay();i<6;i++ ){
+								cell = row.insertCell();
+								cell.innerHTML ="<font color='#CFCFCF'>"+next_start+"</font>";
+								cell.id=today.getFullYear()+"-"+(today.getMonth()+2)+"-"+next_start;
+								next_start=next_start+1;
+							}
+							
+							//예약
+							var ht="<br><label class='reservation'><a href='#'>";
+							ht+="ROOM1 : 예약완료";
+							ht+="</a></label>";
+							$('#2021-3-29').append(ht);
+							$('#2021-3-30').append(ht);
+							var ht2="<br><label class='reservation'><a href='#'>ROOM2 : 예약완료</a></label>"
+							var ht3="<br><label class='reservation'><a href='#'>ROOM1 : 예약완료</a></label>"
+							var ht4="<br><label class='reservation'><a href='#'>ROOM1 : 예약완료</a></label>"
+							$('#2021-3-30').append(ht2);
+							$('#2021-3-5').append(ht3);
+							$('#2021-3-6').append(ht4);
+							
+						}
+						
+						
+						buildCalendar();
+						</script>
+						<!-- 달력 END -->
+					
+					
+					
+					
+					
+					
+					
+					<!-- 조건 검색 영역  -->
+					<div class="card mb-4">
+						<div class="card-header">
+						<svg class="svg-inline--fa fa-table fa-w-16 mr-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+						<path fill="currentColor" d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"></path></svg>
+						조건검색</div>
+							
+						<div class="card-body">
+							<form action="#" method="post" name="searchForm">
+								<div class="searchTable">
+									<table class="table table-bordered" id="searchArea" width="100%" cellspacing="0" style="border-top: none;">
+										<tr>
+											<th width="200px">예약검색</th>
+												<td colspan="5"><select name="search_type" >
+													<option value="rsv_no"  selected="selected">예약번호</option>
+													<option value="member.m_id">예약자ID</option>
+													<option value="member.m_name">예약자명</option>
+											</select> <input type="text" name="type" value="" class="fText" style="width:240px;"></td>
+										</tr>
+										<tr>
+										<th>예약상태</th>
+										<td colspan="5">
+											<!-- <select id="rsv_status" name="rsv_status">
+												<option value="0" selected="selected">입금대기</option>
+												<option value="1">입금완료</option>
+												<option value="2">예약취소</option>
+											</select> -->
+											<input type="checkbox" name="rsvStatusList" value="1">입금대기(1)&nbsp;&nbsp;&nbsp;
+											<input type="checkbox" name="rsvStatusList" value="2">입금완료(2)&nbsp;&nbsp;&nbsp;
+											<input type="checkbox" name="rsvStatusList" value="3">입금전취소(3)&nbsp;&nbsp;&nbsp;
+											<input type="checkbox" name="rsvStatusList" value="4">환불대기(4)&nbsp;&nbsp;&nbsp;
+											<input type="checkbox" name="rsvStatusList" value="5">환불완료(5)&nbsp;&nbsp;&nbsp;<br>
+										</td>
+										</tr>
+										<!-- <tr>
+										<th>결제금액? 총결제금액??</th>
+										  <td colspan="5">
+											
+											<div id="pay_amount" name="pay_amount" style="display:inline-block;">
+												<input type="text" name="min_input" size="8" value="이게 필요">원 ~ <input type="text" name="max_input" size="8" value="할까요~?">원
+											</div>
+										</td>
+										</tr> -->
+										<tr>
+											<th>객실</th>
+											<td>
+												<input type="checkbox" name="rmList" value="1">ROOM1(1)&nbsp;&nbsp;&nbsp;
+												<input type="checkbox" name="rmList" value="2">ROOM2(2)&nbsp;&nbsp;&nbsp;
+												<input type="checkbox" name="rmList" value="3">ROOM3(3)&nbsp;&nbsp;&nbsp;
+												<input type="checkbox" name="rmList" value="4">ROOM4(4)&nbsp;&nbsp;&nbsp;
+											</td>
+										</tr>
+										<tr style="border-bottom: 1px solid #dee2e6;">
+											<th >날짜</th>
+												<td colspan="5">
+													<!-- 
+													<select id="rsv_date_kind" name="rsv_date_kind" class="fSelect">
+														<option value="checkin_date">체크인날짜</option>
+														<option value="checkout_date">체크아웃날짜</option>
+														<option value="pay_date">결제완료일</option>
+														<option value="cancel_date">예약취소일</option>
+													</select>
+													-->
+													<select name="datekeyword">
+														<option value="rsv_checkin">체크인날짜</option>
+														<option value="rsv_checkout">체크아웃날짜</option>
+														<option value="rsv_payment_date">결제완료일</option>
+														<option value="rsv_cancel_date">예약취소일</option>
+													</select>
+													<input type="date" id="rsv_start_date"  name="rsv_start_date" value=""> ~ 
+													<input type="date" id="rsv_end_date" name="rsv_end_date" value=""></td>
+										</tr>
+										
+									</table>	
+									<div style="position: relative; left:40%">
+									<button type="button" id="memberSearchBtn" class="btns">검 색</button>
+									<button type="reset" id="reset" class="btns">초기화</button>
+									</div>
+								</div>
+							</form>
+						</div>	
+						</div>
+						
+					<!-- 예약목록 테이블 -->
+					<div class="card mb-4">
+						<div class="card-header">
+							<svg class="svg-inline--fa fa-table fa-w-16 mr-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+							<path fill="currentColor" d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"></path>
+							</svg>
+							<!-- <i class="fas fa-table mr-1"></i> Font Awesome fontawesome.com -->예약목록</div>
+						<div class="card-body">
+							<div class="table-responsive"></div>
+							<div class="col-sm-12">
+								<div class="row">
+									<div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+										<table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" style="text-align: center; width: 100%;" role="grid" aria-describedby="dataTable_info">
+											<thead>
+												<tr role="row">
+													<th class="">
+													<input type="checkbox" id="checkAll" value="1">
+													</th>
+													<th>예약번호</th>
+													<th>예약자(ID)</th>
+													<th>전화번호</th>
+													<th>객실번호</th>
+													<th>객실이름(인원)</th>
+													<th>예약인원</th>
+													<th>체크인날짜</th>
+													<th>체크아웃날짜</th>
+													<th>숙박일수</th>
+													<th>결제금액</th>
+													<th>결제완료일</th>
+													<th>예약취소일</th>
+													<th>결제상태</th>
+													
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th style="white-space: nowrap;"><button type="button" class="btns">입금완료</button></th>
+													<th>예약번호</th>
+													<th>예약자(ID)</th>
+													<th>전화번호</th>
+													<th>객실번호</th>
+													<th>객실이름(인원)</th>
+													<th>예약인원</th>
+													<th>체크인날짜</th>
+													<th>체크아웃날짜</th>
+													<th>숙박일수</th>
+													<th>결제금액</th>
+													<th>결제완료일</th>
+													<th>예약취소일</th>
+													<th><button type="button" class="btns">저 장</button></th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<tr role="row" class="odd">
+													<td class="sorting_1"><input type="checkbox" class="checkbox" id="check" value="1"></td>
+													<td>abc_20210327</td>
+													<td>최영군(abc123)</td>
+													<td>010-1234-1234</td>
+													<td>1</td>
+													<td>블루(2)</td>
+													<td>3</td>
+													<td>2021/09/12</td>
+													<td>2021/09/13</td>
+													<td>1</td>
+													<td>200,000</td>
+													<td>2021/03/27</td>
+													<td>-</td>
+													<td>
+														<select id="rsv_status" name="rsv_status">
+															<option value="0">입금대기</option>
+															<option value="1">입금완료</option>
+															<option value="2">예약취소</option>
+														</select>
+	                                                </td>	
+												</tr>
+												<tr role="row" class="odd">
+													<td class="sorting_1"><input type="checkbox" class="checkbox" id="check" value="1"></td>
+													<td>xyz_20210326</td>
+													<td>함박스테끼(itwill123)</td>
+													<td>010-2345-9877</td>
+													<td>2</td>
+													<td>그레이(4)</td>
+													<td>4</td>
+													<td>2021/04/12</td>
+													<td>2021/04/15</td>
+													<td>3</td>
+													<td>400,000</td>
+													<td>2021/03/25</td>
+													<td>2021/03/25</td>
+													<td>
+														<select id="rsv_status" name="rsv_status">
+															<option value="0">입금대기</option>
+															<option value="1">입금완료</option>
+															<option value="2">예약취소</option>
+														</select>
+	                                                </td>	
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+	</main>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath }/admin/dist/js/scripts.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath }/admin/dist/assets/demo/datatables-demo.js"></script>
+<script type="text/javascript">
+$("#checkAll").change(function() {  
+	if($(this).is(":checked")){     
+		$(".checkbox").prop("checked",true);
+	}else {
+		$(".checkbox").prop("checked",false);
+	}
+});
+</script>

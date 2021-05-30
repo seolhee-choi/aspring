@@ -1,0 +1,22 @@
+package site.itwill.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import site.itwill.dto.Reservation;
+import site.itwill.dto.ReservationJoin;
+import site.itwill.dto.ReservationTwo;
+import site.itwill.dto.Room;
+import site.itwill.dto.RoomCheck;
+
+public interface ReservationMapper {
+	List<RoomCheck> selectRoomCheck(ReservationTwo reservationTwo);
+	List<Room> selectAvailableRoom(ReservationTwo reservationTwo);
+	int selectCheckAvailable(ReservationTwo reservationTwo);
+	Room selectRoomOne(int rmNo);
+	int insertRsv(Reservation reservation);
+	
+	List<ReservationJoin> selectRsvList();
+	List<ReservationJoin> selectDynamicRsvList(Map<String, Object> map);
+	ReservationJoin selectRsvOne(int rsvNo);
+}

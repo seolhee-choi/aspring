@@ -1,0 +1,35 @@
+package site.itwill.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class AdminMemberRSVController {
+	
+	/* ============== */
+	
+	@RequestMapping("/admin/test1")
+	public String test01() {
+		return "admin/admin_index";
+	}
+	
+	@RequestMapping("/admin/test2")
+	public String test02() {
+		return "admin/dist/admin_memberlist";
+	}
+	@RequestMapping("/admin/test3")
+	public String test03() {
+		return "admin/dist/admin_memerRegister";
+	}
+	
+	@RequestMapping("/admin/test4")
+	public String test04() {
+		return "admin/dist/admin_reservation";
+	}
+	
+	
+	
+	
+	
+	
+}
